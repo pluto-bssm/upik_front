@@ -16,6 +16,7 @@ interface PostProps {
 
 export default function ContentCard({ post }: PostProps) {
   const [helpCount, setHelpCount] = useState(0);
+  const [isHelped, setIsHelped] = useState(false);
   const [modalMode, setModalMode] = useState<"none" | "report" | "siren" | "vote">("none");
 
   const handleReportBtn = () => {
@@ -30,14 +31,23 @@ export default function ContentCard({ post }: PostProps) {
     setModalMode("none");
   };
 
+  const handleHelpClick = () => {
+    if (isHelped) {
+      setHelpCount(helpCount - 1);
+    } else {
+      setHelpCount(helpCount + 1);
+    }
+    setIsHelped(!isHelped);
+  };
+
   return (
     <div className="bg-white rounded-lg p-6 w-[866px] relative">
       <h2 className="text-xl font-semibold text-black mb-3">{post.title}</h2>
-      <div className="flex items-center text-sm text-black mb-4 gap-2">
+      <div className="flex items-center text-sm text-gray-300 mb-4 gap-2">
         <Calendar size={14} />
         <span>{post.date} 제작</span>
       </div>
-      <p className="text-[#8B8B8B] text-base mb-6 leading-relaxed">{post.content}</p>
+      <p className="text-gray-800 text-base mb-6 leading-relaxed">{post.content}</p>
       <div className="flex gap-3">
         <button
           onClick={() => setModalMode("report")}
@@ -45,8 +55,12 @@ export default function ContentCard({ post }: PostProps) {
           신고하기
         </button>
         <button
-          onClick={() => setHelpCount(helpCount + 1)}
-          className="border border-[#0158DE] text-[#0158DE] rounded-full px-4 py-2 text-sm flex items-center gap-1 hover:bg-[#0158DE] hover:text-white transition">
+          onClick={handleHelpClick}
+          className={`border border-[#0158DE] rounded-full px-4 py-2 text-sm flex items-center gap-1 transition ${
+            isHelped 
+              ? 'bg-[#0158DE] text-white' 
+              : 'text-[#0158DE] hover:bg-[#0158DE] hover:text-white'
+          }`}>
           <ThumbsUp size={16} />
           도움이 되었어요 | {helpCount}명
         </button>

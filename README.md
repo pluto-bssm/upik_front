@@ -1,84 +1,25 @@
-# Turborepo starter
+### 커밋 컨벤션
 
-This Turborepo starter is maintained by the Turborepo core team.
+| Type       | Description                                      |
+|------------|--------------------------------------------------|
+| **feat**   | 새로운 기능 추가                                  |
+| **fix**    | 버그 수정                                        |
+| **refactor** | 코드 리팩토링 (기능 변경 없이 구조 개선)           |
+| **test**   | 테스트 코드 작성                                  |
+| **chore**  | 기타 자잘한 작업 (빌드 설정, 패키지 관리 등)        |
+| **docs**   | 문서 추가 또는 수정                               |
+| **delete** | 불필요한 코드나 파일 삭제                         |
+| **build**  | 빌드 관련 파일 및 설정 변경                        |
 
-## Using this example
+---
 
-Run the following command:
+### 커밋 메시지 형식1
+- **형식**: `타입(#이슈번호) :: 변경 사항 요약`
+- **제목**은 50자 이내, **본문**은 선택적이지만 72자 이내로 요약 설명 권장.
 
-```sh
-npx create-turbo@latest
+---
+
+### 예시
 ```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
+    feat(#123) :: 로그인 기능 추가
 ```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
