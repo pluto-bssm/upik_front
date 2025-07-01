@@ -1,4 +1,4 @@
-name: Upik_front
+name: upik_front
 
 on:
   push:
@@ -34,16 +34,16 @@ jobs:
 
       - name: Prettier 코드 포맷 검사 
         run: pnpm format
-        working-directory: ${{ github.workspace }}/upik_realfront
+        working-directory: ${{ github.workspace }}
 
       - name: Build admin app 
         run: pnpm turbo run build --filter=apps/admin --continue
-        working-directory: ${{ github.workspace }}/upik_realfront
+        working-directory: ${{ github.workspace }}
 
       - name: Build client app 
         run: pnpm turbo run build --filter=apps/client --continue
-        working-directory: ${{ github.workspace }}/upik_realfront
+        working-directory: ${{ github.workspace }}
 
       - name: 테스트 실행 
         run: pnpm test
-        working-directory: ${{ github.workspace }}/upik_realfront
+        working-directory: ${{ github.workspace }}
