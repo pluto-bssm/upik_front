@@ -41,7 +41,7 @@ export default function ContentCard({ post }: PostProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg p-6 w-[866px] relative">
+    <div className="bg-[white] rounded-lg p-6 w-[866px] relative">
       <h2 className="text-xl font-semibold text-black mb-3">{post.title}</h2>
       <div className="flex items-center text-sm text-gray-300 mb-4 gap-2">
         <Calendar size={14} />
