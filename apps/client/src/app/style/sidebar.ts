@@ -81,3 +81,32 @@ export const SubText = styled.p`
   font-family: 'P_Regular';
   font-size: 1.5vh;
 `;
+
+
+
+export const Userdiv = styled.div.withConfig({
+    shouldForwardProp: filterBooleanProps(["visible"]),
+  })<{ visible: boolean }>`
+    display: ${({ visible }) => (visible ? "flex" : "none")};
+    flex-direction: row;
+    align-items: center;
+
+    gap: 1vh;
+    padding: 5vh;
+
+    font-family: 'P_Regular';
+    font-size: 1.8vh;
+    color : #737373;
+
+
+  `;
+
+
+  export const UserLink = styled(Link)`
+  text-decoration: none;
+  color: #737373;
+
+  &:hover {
+    color: #0158DE;
+  }
+`;
