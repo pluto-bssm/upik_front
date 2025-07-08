@@ -2,6 +2,8 @@
 
 import "./globals.css";
 import Sidebar from "./component/sidebar";
+import { ApolloProvider } from '@apollo/client';
+import client  from '../lib/apollo-client';
 
 export default function RootLayout({
   children,
@@ -11,6 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      <ApolloProvider client={client}>
         <div className="flex flex-row">
           <div className="fixed">
             <Sidebar />
@@ -20,6 +23,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        </ApolloProvider>
       </body>
     </html>
   );

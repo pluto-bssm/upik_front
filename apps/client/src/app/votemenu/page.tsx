@@ -11,12 +11,8 @@ import {
 } from "../style/Votemenu";
 
 
-export default function Votemenu() {
-  const Lists = [
-    "까먹고 기숙사 소등 안 한 날 마주친 사감선생님",
-    "깃 충돌",
-    "학생증 검사중 깨달은 학교에 두고온 내 학생증",
-  ];
+export default function Votemenu(options : any) {
+
 
   const navigate = useRouter();
   const [selected, setSelected] = useState<number | null>(null);
@@ -36,7 +32,7 @@ export default function Votemenu() {
 
   return (
     <Container>
-      {Lists.map((item, index) => (
+      {options.map((item : any, index : any ) => (
         <VoteOption
           key={index}
           selected={selected === index}
