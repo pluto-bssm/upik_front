@@ -52,4 +52,3 @@ const SearchIcon = styled(Search)`
   transform: translateY(-50%);
   color: ${color.lightmain};
 `;
-

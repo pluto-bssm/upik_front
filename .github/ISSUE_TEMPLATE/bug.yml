@@ -1,0 +1,29 @@
+name: "🐞 Bug"
+description: 버그 수정 시 사용해주세요
+title: "[bug] :: "
+labels: ["bug"]
+assignees: []
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 📄 문제를 설명해주세요
+      description: 문제가 발생하는 위치나 상황을 설명해주세요.
+      placeholder: 자세히 적을수록 좋아요!
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: ✅ 작업할 내용
+      description: 어떤 작업이 필요한지 체크박스 형태로 작성해주세요.
+      placeholder: 최대한 세분화해서 적어주세요!
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 🙋🏻 참고 자료
+      description: 참고할 자료나 링크가 있다면 작성해주세요!

@@ -1,6 +1,6 @@
 import ContentCard from "@/components/ContentBox";
 import NavBar from "@/components/NavBar";
-
+import SearchBar from "@/components/SearchBar";
 
 const posts = [
   {
@@ -26,10 +26,13 @@ const posts = [
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen bg-[#EFF5FF]">
+    <div className="flex">
       <NavBar />
       <main className="bg-[#EFF5FF] min-h-screen flex-1 px-10 py-14 ml-[242px] w-[866px] pl-[150px]">
-        <h1 className="text-4xl font-bold mb-12">학교생활 가이드</h1>
+        <div className="flex justify-between items-center mb-12">
+          <h1 className="text-4xl font-bold">재학생 가이드</h1>
+          <SearchBar />
+        </div>
         <div className="flex flex-col gap-8">
           {posts.map((post, idx) => (
             <ContentCard key={idx} post={post} />
