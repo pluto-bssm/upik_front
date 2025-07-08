@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import color from "@/styles/color";
+import color from "@/app/style/color";
 
 export default function LoginPage() {
   return (

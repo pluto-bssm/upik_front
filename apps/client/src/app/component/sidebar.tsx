@@ -34,6 +34,19 @@ const VoteSection = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }
   </Section>
 );
 
+const GuideSection = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void }) => (
+  <Section>
+    <Title active={isOpen} onClick={toggle}>가이드</Title>
+    {isOpen && (
+      <div style={{ marginTop: "0.5vh", display: "flex", flexDirection: "column", gap: "1vh" }}>
+        <SubLink href="/school"><SubText>학교생활가이드</SubText></SubLink>
+        <SubLink href="/student"><SubText>재학생 가이드</SubText></SubLink>
+        <SubLink href="/roomGuide"><SubText>기숙사 가이드</SubText></SubLink>
+      </div>
+    )}
+  </Section>
+);
+
 export default function Sidebar() {
 
   const [mounted, setMounted] = useState(false);
@@ -44,9 +57,11 @@ export default function Sidebar() {
 
   const [rotated, setRotated] = useState(false);
   const [voteOpen, setVoteOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(false);
 
   const toggleSidebar = () => setRotated((prev) => !prev);
   const toggleVote = () => setVoteOpen((prev) => !prev);
+  const toggleGuide = () => setGuideOpen((prev) => !prev);
   const username = "플루토";
 
   if (!mounted) return null;
@@ -65,7 +80,7 @@ export default function Sidebar() {
       <Content visible={rotated}>
         <div style={{ marginTop: "5vh", display: "flex", flexDirection: "column" }}>
           <VoteSection isOpen={voteOpen} toggle={toggleVote} />
-          <Section><Title>가이드</Title></Section>
+          <GuideSection isOpen={guideOpen} toggle={toggleGuide} />
           <Section><Title>상점</Title></Section>
         </div>
       </Content>

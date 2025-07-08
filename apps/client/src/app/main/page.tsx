@@ -3,7 +3,7 @@
 import styled from "styled-components";
 import MContentCard from "@/components/MContentBox";
 import NavBar from "@/components/NavBar";
-import color from "@/styles/color";
+import color from "@/app/style/color";
 
 const voteContent = [
   {

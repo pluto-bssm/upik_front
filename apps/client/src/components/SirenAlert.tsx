@@ -1,6 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import styled from "styled-components";
-import color from "@/styles/color";
+import color from "@/app/style/color";
 
 interface Props {
     onClose: () => void;  

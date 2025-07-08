@@ -1,10 +1,14 @@
 "use client";
 
-import color from "@/styles/color";
-import styled from "styled-components";
 import ContentCard from "@/components/ContentBox";
-import NavBar from "@/components/NavBar";
 import SearchBar from "@/components/SearchBar";
+import {
+  Container,
+  MainContent,
+  Header,
+  Title,
+  ContentList
+} from "../style/Guide";
 
 const posts = [
   {
@@ -31,7 +35,7 @@ const posts = [
 export default function StudentPage() {
   return (
     <Container>
-      <NavBar />
+
       <MainContent>
         <Header>
           <Title>재학생 가이드</Title>
@@ -46,36 +50,3 @@ export default function StudentPage() {
     </Container>
   );
 } 
-
-
-const Container = styled.div`
-  display: flex;
-`;
-
-const MainContent = styled.div`
-  background-color: ${color.back_color};
-  min-height: 100vh;
-  flex: 1;
-  padding: 3.5rem 2.5rem 3.5rem 9.375rem; 
-  margin-left: 242px;
-  width: 866px;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 3rem; 
-`;
-
-const Title = styled.h1`
-  font-size: 2.25rem; 
-  font-color: ${color.gray800};
-  font-weight: bold;
-`;
-
-const ContentList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem; 
-`;
