@@ -7,7 +7,7 @@ export default function LoginPage() {
   return (
     <Container>
         <LogoBox>
-            <Logo src="/logo.svg" alt="logo" width={100} height={100} />
+            <Logo src="/logo.svg" alt="logo" />
             <LogoText>저희와 함께 색다른 정보들을 만나보세요.</LogoText>
         </LogoBox>
         <LoginBox>
@@ -28,6 +28,12 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     height: 100vh;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 `;
 
 const LogoBox = styled.div`
@@ -38,13 +44,15 @@ const LogoBox = styled.div`
 `;
 
 const Logo = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 131px;
+    height: 42px;
 `;
 
 const LogoText = styled.p`
-    font-size: 1.5rem;
+    font-size: 16px;
     font-weight: 600;
+    color:${color.gray800};
+
 `;
 
 const LoginBox = styled.div`
@@ -52,19 +60,25 @@ const LoginBox = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top:40px;
 `;
 
 const GoogleLoginButton = styled.button`
-    width: 100%;
-    height: 50px;
-    background-color: #4285F4;
-    color: white;
-    border: none;
+    width: 350px;
+    height: 44px;
+    background-color: ${color.white};
+    color: ${color.gray800};
+    font-weight:bold;
+    font-size:16px;
+    border: 1px solid ${color.gray150};
     border-radius: 5px;
     cursor: pointer;
 `;
 
 const ExplainText = styled.p`
-    font-size: 1.2rem;
+    font-size: 12px;
+    margin-right:150px;
+    margin-top:4px;
     font-weight: 600;
+    color:${color.gray200};
 `;
