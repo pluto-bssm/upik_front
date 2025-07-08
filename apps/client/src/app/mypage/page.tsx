@@ -34,6 +34,11 @@ function Goreport(){
   router.push("/report");
 }
 
+function Gomyvote(){
+  router.push("/myvote");
+}
+
+
   return (
     <Container>
       <Title>마이페이지</Title>
@@ -46,7 +51,7 @@ function Goreport(){
           </NameForm>
           <ButtonForm>
             <Button>
-              <ButtonContent>
+              <ButtonContent onClick={() => Gomyvote()}>
                 <ButtonSection>
                 <Buttonp>내가쓴 투표조회</Buttonp>
                 <StyledArrowImage src={arrow} alt="checkimg"  width={30} height={30}/>

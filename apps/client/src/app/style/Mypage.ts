@@ -6,7 +6,7 @@ import Image from "next/image";
 export const Container = styled.div`
   height: 100vh;
   padding: 3rem;
-  margin-left : 10vh;
+  margin-left : 24vh;
 
 `;
 
@@ -64,6 +64,9 @@ export const Input = styled.input`
 `;
 
 export const StyledArrowImage = styled(Image)`
+  position : absolute;
+  left : 35vh;
+  top:-8px;
   transition: filter 0.1s ease;
 `;
 
@@ -124,7 +127,7 @@ export const ButtonSection =  styled.div`
   display : flex;
   justify-content : start;
   align-items: start;
-  gap : 25vh;
+  position : relative;
   
 `;
 
@@ -138,6 +141,7 @@ export const Buttonp =  styled.p`
 export const ButtonSub =  styled.p`
   font-size: 1.4vh;
   font-weight: 400;
+  color : #A6A6A6
 `;
 
 

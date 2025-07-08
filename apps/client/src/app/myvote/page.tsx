@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import arrow from "@/app/images/arrow4.svg";
-import arrow5 from "@/app/images/arrow5.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -17,17 +16,7 @@ import {
   ListItemInner,
   ListTitle,
   ListInfo,
-  DetailBox,
-  DetailTitle,
-  DetailInfo,
-  DetailContent,
-  DetailStatus,
-  Images,
-  BackButtonWrapper,
-  BackArrowImage,
-  DetailWrapper,
-  CheckResultButton
-} from "../style/report";
+} from "../style/myvote";
 
 const name = "1134박기주";
 const email = "24.013@bssm.hs.kr";
@@ -90,11 +79,11 @@ export default function Mypage() {
 
   return (
     <Container>
-      <BackButtonWrapper>
-      <BackArrowImage src={arrow} alt="arrow" onClick={gotoback} />
+      <div className="flex items-center gap-[3vh]">
+      <Image src={arrow} alt="arrow" className="relative top-[-1vh]" onClick={gotoback}/>
       <Title>마이페이지</Title>
-      </BackButtonWrapper>
-      <Sub>신고기록 조회</Sub>
+      </div>
+      <Sub>내가 쓴 투표 게시물</Sub>
       <ContentBox>
         <ListBox>
           {posts.map((post) => (
@@ -118,21 +107,6 @@ export default function Mypage() {
             </ListItem>
           ))}
         </ListBox>
-
-        {selectedPost && (
-          <DetailBox>
-            <DetailWrapper>
-              <DetailTitle>{selectedPost.title}</DetailTitle>
-              <DetailInfo>{selectedPost.date} 제작</DetailInfo>
-              <DetailContent>{selectedPost.content}</DetailContent>
-              <CheckResultButton>
-              결과확인하기
-              <Images src={arrow5} alt="arrow" />
-            </CheckResultButton>
-              </DetailWrapper>
-            <DetailStatus>현재 검토중인 질문입니다</DetailStatus>
-          </DetailBox>
-        )}
       </ContentBox>
     </Container>
   );

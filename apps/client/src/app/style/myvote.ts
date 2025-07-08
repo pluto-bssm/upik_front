@@ -158,7 +158,7 @@ export const ButtonContent =  styled.div`
 `;
 // 리스트 박스 (왼쪽)
 export const ListBox = styled.div`
-  width: 60vh;
+  width: 124vh;
   height: 60vh;
   background-color: #ffffff;
   border-radius: 1vh;
@@ -211,90 +211,4 @@ export const ListInfo = styled.div`
   gap: 2vh;
   font-size: 1.5vh;
   color: #888;
-`;
-
-// 상세 정보 박스 (오른쪽)
-export const DetailBox = styled.div`
-  width: 60vh;
-  height: 55vh;
-  background-color: #ffffff;
-  border-radius: 1vh;
-  display : flex;
-  flex-direction : column;
-  align-items: center;
-  
-`;
-
-export const DetailTitle = styled.p`
-  font-size: 2.7vh;
-  font-weight: 500;
-  position : absolute;
-  top:-24vh;
-
-
-`;
-
-export const DetailInfo = styled.p`
-  font-size: 1.5vh;
-  position : absolute;
-  top:-18vh;
-`;
-
-export const DetailContent = styled.p`
-  font-size: 2vh;
-  position : absolute;
-  top:-10vh;
-  width:100%
-
-`;
-
-export const DetailStatus = styled.p`
-  font-size: 1.3vh;
-  color: #ff9900;
-  position : absolute;
-  top:70vh;
-  padding-right:30vh;
-
-`;
-
-
-export const Images =  styled(Image)`
-  position : relative;
-  top:-1px;
-`;
-
-
-
-export const BackButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 3vh;
-`;
-
-export const BackArrowImage = styled(Image)`
-  position: relative;
-  top: -1vh;
-  cursor: pointer;
-`;
-
-export const DetailWrapper = styled.div`
-  width: 45vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-export const CheckResultButton = styled.button`
-  background-color: #0158DE;
-  border: none;
-  width: 14vh;
-  height: 4vh;
-  border-radius: 3vh;
-  color: #ffffff;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 1vh;
 `;
