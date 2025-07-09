@@ -23,7 +23,6 @@ export default function Votepage() {
   if (error) return <p>에러 발생: {error.message}</p>;
   if (!data?.vote?.getAllVotes) return <p>투표 데이터 없음</p>;
 
-  console.log( data )
   
 
   return (

@@ -13,9 +13,6 @@ import {
 
 export default function Votemenu({ options }: { options: any[] })  {
 
-  console.log(options)
-
-
   const navigate = useRouter();
   const [selected, setSelected] = useState<number | null>(null);
 

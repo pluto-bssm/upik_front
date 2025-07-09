@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4vh;
+  gap: 1vh;
   align-items: center;
 `;
 
@@ -47,9 +47,9 @@ export const OptionLabel = styled.p`
 export const SubmitButton = styled.button.attrs(() => ({
   type: "button",
 }))<{ $active: boolean }>`
-  position: relative;
-  left: 47vh;
-  top: 0vh;
+  position: absolute;
+  left: 95vh;
+  top: 32vh;
   font-family: "P_Regular";
   width: 16vh;
   height: 4vh;

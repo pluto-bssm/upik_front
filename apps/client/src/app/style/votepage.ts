@@ -27,6 +27,7 @@ export const CategoryText = styled.p`
 export const TitleWrapper = styled.div`
   position: absolute;
   top: 3vh;
+  width : 100%;
 `;
 
 export const TitleText = styled.p`

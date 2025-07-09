@@ -15,6 +15,7 @@ export const Title = styled.h1`
   font-size: 5vh;
   font-weight: 500;
   margin-bottom:1rem;
+  position : relative;
 `;
 
 export const Sub = styled.h1`
@@ -204,6 +205,7 @@ export const ListItemInner = styled.div`
 export const ListTitle = styled.p`
   font-size: 2vh;
   font-weight: 400;
+
 `;
 
 export const ListInfo = styled.div`
@@ -229,7 +231,7 @@ export const DetailTitle = styled.p`
   font-size: 2.7vh;
   font-weight: 500;
   position : absolute;
-  top:-24vh;
+  top:-20vh;
 
 
 `;
@@ -237,13 +239,13 @@ export const DetailTitle = styled.p`
 export const DetailInfo = styled.p`
   font-size: 1.5vh;
   position : absolute;
-  top:-18vh;
+  top:-15vh;
 `;
 
 export const DetailContent = styled.p`
   font-size: 2vh;
   position : absolute;
-  top:-10vh;
+  top:-7vh;
   width:100%
 
 `;
@@ -269,6 +271,7 @@ export const BackButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 3vh;
+  
 `;
 
 export const BackArrowImage = styled(Image)`
@@ -286,6 +289,8 @@ export const DetailWrapper = styled.div`
 `;
 
 export const CheckResultButton = styled.button`
+  position: relative;
+  top:6vh;
   background-color: #0158DE;
   border: none;
   width: 14vh;
