@@ -1,12 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display : flex;
+  flex-direction : column;
+  gap : 10vh;
+`;
 
 export const Card = styled.div`
   background-color: #FFFFFF;
   width: 120vh;
   height: 60vh;
-  border-radius: 2vh;
 `;
 
 export const InfoWrapper = styled.div`
@@ -44,8 +47,7 @@ export const DateText = styled.p`
 `;
 
 export const MenuWrapper = styled.div`
-  position: absolute;
-  top: 20vh;
-  left: 5vh;
-  height: auto;
+  position : absolute;
+  margin-top : -40vh;
+  margin-left : 5vh;
 `;
