@@ -2,7 +2,6 @@
 
 import styled from "styled-components";
 import MContentCard from "@/components/MContentBox";
-import NavBar from "@/components/NavBar";
 import color from "@/app/style/color";
 
 const voteContent = [
@@ -26,7 +25,6 @@ const voteContent = [
 export default function MainPage() {
   return (
     <Container>
-      <NavBar />
       <Main>
         <Grid>
           <Section>

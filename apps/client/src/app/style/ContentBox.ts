@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import color from "@/app/style/color";
 
-
 export const CardContainer = styled.div`
   background-color: ${color.white};
   border-radius: 0.5rem;
@@ -39,16 +38,11 @@ export const ButtonGroup = styled.div`
 `;
 
 export const ReportButton = styled.button`
-  border: 1px solid ${color.main};
-  color: ${color.main};
-  border-radius: 9999px;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
   transition: all 0.2s;
-  &:hover {
-    background-color: ${color.main};
-    color: ${color.white};
-  }
+  border:none;
+  backgroud-color:none;
 `;
 
 export const HelpButton = styled.button<{ isHelped: boolean }>`
@@ -78,4 +72,9 @@ export const VoteButton = styled.button`
   align-items: center;
   gap: 0.25rem;
   margin-left: auto;
+`;
+
+export const LogoImage = styled.img`
+  width: 24px;
+  height: auto;
 `;
