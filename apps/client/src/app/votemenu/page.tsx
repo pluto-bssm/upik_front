@@ -11,7 +11,7 @@ import {
 } from "../style/Votemenu";
 
 
-export default function Votemenu(options : any) {
+export default function Votemenu({ options }: { options: any[] })  {
 
 
   const navigate = useRouter();
@@ -30,9 +30,14 @@ export default function Votemenu(options : any) {
     }
   };
 
+  if (!Array.isArray(options)) {
+    console.warn("Votemenu: options가 배열이 아님", options);
+    return <p>옵션이 존재하지 않습니다.</p>;
+  }
+
   return (
     <Container>
-      {options.map((item : any, index : any ) => (
+      {options.map((item: any, index: number) => (
         <VoteOption
           key={index}
           selected={selected === index}
@@ -44,7 +49,7 @@ export default function Votemenu(options : any) {
             checked={selected === index}
             onChange={() => handleChange(index)}
           />
-          <OptionLabel>{item}</OptionLabel>
+         <OptionLabel>{item.content}</OptionLabel>
         </VoteOption>
       ))}
 

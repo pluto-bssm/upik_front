@@ -14,14 +14,15 @@ import {
 } from "../style/votepage";
 
 import { useQuery } from '@apollo/client';
-import { GET_VOTE } from '../queries';
+import { GET_ALL_VOTES } from '../queries';
 
 export default function Votepage() {
-  const { loading, error, data } = useQuery(GET_VOTE);
+  const { loading, error, data } = useQuery(GET_ALL_VOTES);
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>에러 발생: {error.message}</p>;
   if (!data?.vote?.getAllVotes) return <p>투표 데이터 없음</p>;
+  
 
   return (
     <Container>
@@ -40,7 +41,8 @@ export default function Votepage() {
           </Card>
 
           <MenuWrapper>
-            <Votemenu options={vote.options} />
+
+            <Votemenu options={Array.isArray(vote.options) ? vote.options : []} />
           </MenuWrapper>
         </div>
       ))}
