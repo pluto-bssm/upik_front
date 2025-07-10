@@ -25,6 +25,7 @@ export const Title = styled.h1`
   font-size: 2.25rem; 
   font-color: ${color.gray800};
   font-weight: bold;
+  margin-left:-80px;
 `;
 
 export const ContentList = styled.div`
@@ -32,3 +33,4 @@ export const ContentList = styled.div`
   flex-direction: column;
   gap: 2rem; 
 `;
+

@@ -6,10 +6,12 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  background-color:${color.back_color};
 `;
 
 export const SearchWrapper = styled.div`
   position: relative;
+  margin-right:-90px;
 `;
 
 export const SearchInput = styled.input`

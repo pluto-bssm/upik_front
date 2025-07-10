@@ -1,6 +1,6 @@
 "use client";
 
-import logo from "@/app/images/logo.svg";
+import LogoSvg from "@/app/images/logo.svg";
 import {
     Container,
     LogoBox,
@@ -15,7 +15,9 @@ export default function LoginPage() {
   return (
     <Container>
         <LogoBox>
-            <Logo src={logo} alt="logo" />
+            <Logo>
+                <LogoSvg />
+            </Logo>
             <LogoText>저희와 함께 색다른 정보들을 만나보세요.</LogoText>
         </LogoBox>
         <LoginBox>

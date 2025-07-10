@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { fetchCategory } from "@/app/api/axios";
 import ContentCard from "@/components/ContentBox";
 import SearchBar from "@/components/SearchBar";
 import {
@@ -11,21 +9,42 @@ import {
   Title,
   ContentList
 } from "../style/Guide";
+import { gql, useQuery } from "@apollo/client";
+
+const GET_GUIDES = gql`
+  query GetGuidesByCategory($category: String!) {
+    guidesByCategory(category: $category) {
+      id
+      content
+      createdAt
+      like
+      title
+    }
+  }
+`;
 
 export default function StudentPage() {
-  const [posts, setPosts] = useState([]);
+  const { data, loading, error } = useQuery(GET_GUIDES, {
+    variables: { category: "재미" },
+    onCompleted: (data) => {
+      console.log("실제 받아온 데이터:", data);
+    },
+    onError: (error) => {
+      console.error("GraphQL 에러:", error);
+    }
+  });
 
-  useEffect(() => {
-    fetchCategory("학교생활")
-      .then(data => {
-        // data가 배열이라면 바로 setPosts(data)
-        // 만약 data.posts처럼 내부에 있다면 setPosts(data.posts)
-        setPosts(data);
-      })
-      .catch(error => {
-        console.error("가이드 요청 실패:", error);
-      });
-  }, []);
+  console.log("현재 상태:", { 
+    loading: loading, 
+    error: error?.message, 
+    data: data,
+    hasData: !!data,
+    hasError: !!error
+  });
+
+  if (loading) return <div>로딩중... (GraphQL 쿼리 실행 중)</div>;
+  if (error) return <div>에러: {error.message}</div>;
+  if (!data) return <div>데이터가 없습니다.</div>;
 
   return (
     <Container>
@@ -35,8 +54,14 @@ export default function StudentPage() {
           <SearchBar />
         </Header>
         <ContentList>
-          {posts.map((post, idx) => (
-            <ContentCard key={idx} post={post} />
+          {data.guidesByCategory.map((post: any, idx: number) => (
+            <ContentCard
+              key={post.id || idx}
+              post={{
+                ...post,
+                created_at: post.createdAt,
+              }}
+            />
           ))}
         </ContentList>
       </MainContent>

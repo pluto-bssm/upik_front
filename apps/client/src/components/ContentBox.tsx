@@ -4,12 +4,11 @@ import SirenAlert from "@/components/SirenAlert";
 import VoteResCheck from "@/components/VoteResCheck";
 import Image from "next/image";
 import report from "@/app/images/report.svg";
-
 import { Calendar, ThumbsUp, ArrowRight } from "lucide-react";
-import { useEffect, useState } from "react";
-import { fetchCategory } from "@/app/api/axios";
+import { useState } from "react";
 import{
   CardContainer,
+  CardGroup,
   Title,
   DateWrapper,
   ContentText,
@@ -29,20 +28,10 @@ interface PostProps {
   };
 }
 
-export default function ContentCard({ post }: PostProps) {
+export default function ContentBox({ post }: PostProps) {
   const [helpCount, setHelpCount] = useState(post.like);
   const [isHelped, setIsHelped] = useState(false);
   const [modalMode, setModalMode] = useState<"none" | "report" | "siren" | "vote">("none");
-
-  useEffect(() => {
-    fetchCategory("학교생활")
-      .then(data => {
-        console.log("가이드 데이터:", data);
-      })
-      .catch(error => {
-        console.error("가이드 요청 실패:", error);
-      });
-  }, []);
 
   const handleReportBtn = () => {
     setModalMode("siren");
@@ -67,6 +56,7 @@ export default function ContentCard({ post }: PostProps) {
 
   return (
     <CardContainer>
+      <CardGroup>
       <Title>{post.title}</Title>
       <DateWrapper>
         <Calendar size={14} />
@@ -75,9 +65,9 @@ export default function ContentCard({ post }: PostProps) {
       <ContentText>{post.content}</ContentText>
       <ButtonGroup>
         <ReportButton onClick={() => setModalMode("report")}>
-        <LogoImage/>
+          <LogoImage src={report.src || report} alt="report" />
         </ReportButton>
-        <HelpButton onClick={handleHelpClick} isHelped={isHelped}>
+        <HelpButton onClick={handleHelpClick} $isHelped={isHelped}>
           <ThumbsUp size={16} />
           도움이 되었어요 | {helpCount}명
         </HelpButton>
@@ -95,6 +85,9 @@ export default function ContentCard({ post }: PostProps) {
       {modalMode === "vote" && (
         <VoteResCheck onClose={closeModal} />
       )}
+      </CardGroup>
     </CardContainer>
   );
 }
+
+
