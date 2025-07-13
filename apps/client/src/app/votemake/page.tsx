@@ -2,9 +2,13 @@
 
 import { useEffect, useState } from "react";
 import AiLimitModal from "@/components/Ailimitmodal"; 
+import PleaseTitle from "@/components/PleaseTitle"; 
 import OptionModal from "@/components/OptionModal"; 
 import WornModal from "@/components/WornModal"; 
 import { useRouter } from "next/navigation";
+
+import { useQuery } from '@apollo/client';
+import { GET_AIOPTION } from '../queries';
 
 import {
   Container,
@@ -33,9 +37,10 @@ export default function Votemake() {
   const [showModal, setShowModal] = useState(false); 
   const [showModal_option, setShowModal_option] = useState(false);
   const [showModal_worn, setShowModal_worn] = useState(false);
+  const [showModal_title, setShowModal_title] = useState(false);
   const [title, settitle] = useState(""); 
   const [IStitle, setIstitle] = useState(false);
-  const router = useRouter() ;
+  const router = useRouter();
 
   const maxAiUse = 3;
 
@@ -56,75 +61,88 @@ export default function Votemake() {
     setOptionss(updated);
   };
 
-  const exampleOptionss = [
-    "AI 추천 선지 1",
-    "AI 추천 선지 2",
-    "AI 추천 선지 3",
-    "AI 추천 선지 4",
-    "AI 추천 선지 5",
-  ];
-
   const submitVote = () => {
-
     if (title.trim() === "") {
-      
       return;
-    }
-    else if (optionss.length < 2|| optionss.some(option => option.trim() === "")) {
+    } else if (optionss.length < 2 || optionss.some(option => option.trim() === "")) {
       setShowModal_option(true);
       return;
-    
-    }
-
-    else{
+    } else {
       setShowModal_worn(true);
     }
-    
-  }
+  };
 
   useEffect(() => {
     setIstitle(!(title.trim() !== ""));
   }, [title]);
-  
+
+
+  const { loading, error, data, refetch } = useQuery(GET_AIOPTION, {
+    variables: {
+      count: optionss.length,
+      title: title,
+    },
+  });
+
   const handleAIRecommend = () => {
-    if (aiUseCount >= maxAiUse) {
-      setShowModal(true);
-      return;
+    if (title.length === 0) {
+      setShowModal_title(true);
+    } else {
+      if (aiUseCount >= maxAiUse) {
+        setShowModal(true);
+        return;
+      }
+
+      
+
+      if (loading) {
+        console.log("AI가 선지를 생성 중입니다...");
+      } else if (error) {
+        console.error("Error:", error.message);
+      } else if (data) {
+        console.log("데이터 생성 완료");
+        setOptionss(data.optionGenerator.generateOptions.options);
+        setAiUseCount(aiUseCount + 1);
+      } else {
+        refetch(); // 데이터를 다시 가져오도록 요청
+      }
     }
-
-    const updated = optionss.map((option, idx) =>
-      option.trim() === "" ? exampleOptionss[idx] || `AI 추천 선지 ${idx + 1}` : option
-    );
-
-    setOptionss(updated);
-    setAiUseCount(aiUseCount + 1);
   };
 
   const [catego, setcate] = useState("");
 
   return (
     <>
+      {showModal_title && <PleaseTitle onClose={() => setShowModal_title(false)} />}
       {showModal && <AiLimitModal onClose={() => setShowModal(false)} />}
       {showModal_option && <OptionModal onClose={() => setShowModal_option(false)} />}
-      {showModal_worn && <WornModal onClose={() => setShowModal_worn(false)}  onMain={() => {
-  const query = new URLSearchParams({
-    catego: catego,
-    title: title,
-    optionsss: JSON.stringify(optionss),
-  }).toString();
+      {showModal_worn && (
+        <WornModal
+          onClose={() => setShowModal_worn(false)}
+          onMain={() => {
+            const query = new URLSearchParams({
+              catego: catego,
+              title: title,
+              optionsss: JSON.stringify(optionss),
+            }).toString();
 
-  router.push(`/recommend?${query}`);
-}} />}
+            router.push(`/recommend?${query}`);
+          }}
+        />
+      )}
 
       <Container>
         <TitleWrapper>
           <TitleInputWrapper>
-    
-              <OptionC>
-            <OptionButton onClick={() => setcate("재미")}>재미</OptionButton>
-            <OptionButton onClick={() => setcate("진지")}>진지</OptionButton>
+            <OptionC>
+              <OptionButton onClick={() => setcate("재미")}>재미</OptionButton>
+              <OptionButton onClick={() => setcate("진지")}>진지</OptionButton>
             </OptionC>
-            <TitleInput placeholder="투표제목을 입력하세요" value={title} onChange={(e) => settitle(e.target.value)} />
+            <TitleInput
+              placeholder="투표제목을 입력하세요"
+              value={title}
+              onChange={(e) => settitle(e.target.value)}
+            />
             {IStitle ? (
               <div>
                 <WarnP>필수입력사항입니다!</WarnP>

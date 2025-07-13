@@ -4,6 +4,7 @@ import Image from "next/image";
 import check from "@/app/images/check.svg";
 import { useRouter } from "next/navigation";
 import { Wrapper, Container, Message, Button } from "../style/End";
+import { useSearchParams } from "next/navigation";
 
 
 type Props = {
@@ -16,14 +17,16 @@ import {POST_VOTE} from "../mutations"
 // mutation 정의 (variables 선언 포함)
 
 
-export default function Endvote({ searchParams }: Props) {
+export default function Endvote() {
+  const searchParams = useSearchParams();
+
 
   const [post_vote, { loading, error }] = useMutation(POST_VOTE);
 
   const router = useRouter();
-  const category = searchParams.catego as string || "";  // 변수명 맞춤
-  const title = searchParams.title as string || "";
-  const optionsss = searchParams.options;
+  const category = searchParams.get("catego") as string || "";  // 변수명 맞춤
+  const title = searchParams.get("title") as string || "";
+  const optionsss = searchParams.get("options");
 
 
   let parsedOptions: string[] = [];

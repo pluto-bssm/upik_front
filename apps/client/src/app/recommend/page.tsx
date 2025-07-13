@@ -25,27 +25,15 @@ import {
   StyledArrowImage
 } from "../style/Recommend";
 
-type Props = {
-  searchParams: Record<string, string | string[] | undefined>;
-};
-
-export default function recommend() {
-  // 클라이언트 훅들 및 상태는 여기서 OK (use client 선언 필요)
-  // next/navigation 사용 가능
-
+export default function Recommend() {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
-
   const searchParams = useSearchParams();
-  const catego = searchParams.get("catego"); // string | null
-  const title = searchParams.get("title");
-  const optionsss = searchParams.get("optionsss");
 
-  console.log(optionsss)
-
-
-
-
+  // searchParams.get 은 string | null 반환함
+  const catego = searchParams.get("catego") || "";
+  const title = searchParams.get("title") || "";
+  const optionsss = searchParams.get("optionsss") || "";
 
   const [options, setOptions] = useState(["", "", "", "", ""]);
 
@@ -53,12 +41,6 @@ export default function recommend() {
     router.push("/");
   }
 
-  function toStringParam(param: string | null | undefined): string {
-    if (!param) return "";  // null, undefined, '' 모두 빈 문자열로 변환
-    if (Array.isArray(param)) return param.join(",");
-    return param;
-  }
-  
   return (
     <>
       {showModal && (
@@ -66,9 +48,9 @@ export default function recommend() {
           onClose={() => setShowModal(false)}
           onMain={() => {
             const query = new URLSearchParams({
-              category: toStringParam(catego),
-              title: toStringParam(title),
-              options: toStringParam(optionsss),
+              category: catego,
+              title: title,
+              options: optionsss,
             }).toString();
 
             router.push(`/success?${query}`);

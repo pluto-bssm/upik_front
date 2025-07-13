@@ -10,7 +10,7 @@ import {
 
 
 const client = new ApolloClient({
-  uri: 'http://10.150.2.230:8080/graphql',
+  uri: 'http://10.150.149.229:8080/graphql',
   cache: new InMemoryCache(),
 });
 
