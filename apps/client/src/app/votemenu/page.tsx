@@ -82,7 +82,6 @@ export default function Votemenu({
             onChange={() => handleChange(index)}
           />
           <OptionLabel>{item.content}</OptionLabel>
-          <OptionLabel>{item.id}</OptionLabel>
         </VoteOption>
       ))}
 

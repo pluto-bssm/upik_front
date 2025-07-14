@@ -7,6 +7,17 @@ export const Container = styled.div`
 `;
 
 export const Card = styled.div`
+  border-radius : 10px;
+  background-color: #FFFFFF;
+  width: 120vh;
+  height: 60vh;
+`;
+
+export const ALERDYCard = styled.div`
+  display : flex;
+  align-items : center;
+  justify-content : center;
+  border-radius : 10px;
   background-color: #FFFFFF;
   width: 120vh;
   height: 60vh;
@@ -31,6 +42,12 @@ export const TitleWrapper = styled.div`
 `;
 
 export const TitleText = styled.p`
+  color: #000000;
+  font-family: 'P_Regular';
+  font-size: 3vh;
+`;
+
+export const ALERDYTitleText = styled.p`
   color: #000000;
   font-family: 'P_Regular';
   font-size: 3vh;

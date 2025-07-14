@@ -24,7 +24,7 @@ export default function Endvote() {
   const [post_vote, { loading, error }] = useMutation(POST_VOTE);
 
   const router = useRouter();
-  const category = searchParams.get("catego") as string || "";  // 변수명 맞춤
+  const category = searchParams.get("category") as string || "";  // 변수명 맞춤
   const title = searchParams.get("title") as string || "";
   const optionsss = searchParams.get("options");
 

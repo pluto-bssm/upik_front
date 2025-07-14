@@ -29,3 +29,13 @@ query MyQuery($count: Int!, $title: String!) {
   }
 }
 `;
+
+
+
+export const HAS_VOTED = gql`
+query MyQuery($votedId : ID!) {
+  voteResponse {
+    hasUserVoted(voteId: $votedId)
+  }
+}
+`;
