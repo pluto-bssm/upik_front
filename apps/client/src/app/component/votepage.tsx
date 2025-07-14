@@ -14,7 +14,9 @@ import {
   TitleText,
   MenuWrapper,
   ALERDYTitleText,
-  ALERDYCard
+  ALERDYCard,
+  ALERDYCardS,
+  ALERDYSubTitleText
 } from "../style/votepage";
 
 import { useQuery } from "@apollo/client";
@@ -92,7 +94,10 @@ export default function Votepage() {
           // 이미 투표한 경우
           <div key={vote.id}>
             <ALERDYCard>
+              <ALERDYCardS>
               <ALERDYTitleText>이미 투표를 완료했습니다.</ALERDYTitleText>
+              <ALERDYSubTitleText>투표제목 : {vote.title}</ALERDYSubTitleText>
+              </ALERDYCardS>
             </ALERDYCard>
           </div>
         )

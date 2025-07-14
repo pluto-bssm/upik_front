@@ -14,13 +14,19 @@ export const Card = styled.div`
 `;
 
 export const ALERDYCard = styled.div`
-  display : flex;
-  align-items : center;
+  text-align  :center;
+  align-itmes : center;
   justify-content : center;
   border-radius : 10px;
   background-color: #FFFFFF;
   width: 120vh;
   height: 60vh;
+`;
+
+export const ALERDYCardS = styled.div`
+  position : relative;
+  top : 25vh;
+
 `;
 
 export const InfoWrapper = styled.div`
@@ -50,7 +56,13 @@ export const TitleText = styled.p`
 export const ALERDYTitleText = styled.p`
   color: #000000;
   font-family: 'P_Regular';
-  font-size: 3vh;
+  font-size: 2vh;
+`;
+
+export const ALERDYSubTitleText = styled.p`
+  color: #0158de;
+  font-family: 'P_Regular';
+  font-size: 1.6vh;
 `;
 
 export const DateWrapper = styled.div`
