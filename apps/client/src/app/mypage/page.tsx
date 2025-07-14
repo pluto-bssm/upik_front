@@ -2,6 +2,7 @@
 
 import React from "react";
 import arrow from "@/app/images/arrow3.svg";
+import { useRouter } from "next/navigation";
 import {
   Container,
   Title,
@@ -22,7 +23,22 @@ import {
 const name = "1134박기주";
 const email = "24.013@bssm.hs.kr";
 
+
+
 export default function Mypage() {
+
+  const router = useRouter() ;
+
+
+function Goreport(){
+  router.push("/report");
+}
+
+function Gomyvote(){
+  router.push("/myvote");
+}
+
+
   return (
     <Container>
       <Title>마이페이지</Title>
@@ -35,7 +51,7 @@ export default function Mypage() {
           </NameForm>
           <ButtonForm>
             <Button>
-              <ButtonContent>
+              <ButtonContent onClick={() => Gomyvote()}>
                 <ButtonSection>
                 <Buttonp>내가쓴 투표조회</Buttonp>
                 <StyledArrowImage src={arrow} alt="checkimg"  width={30} height={30}/>
@@ -44,7 +60,7 @@ export default function Mypage() {
               </ButtonContent>
             </Button>
             <Button>
-            <ButtonContent>
+            <ButtonContent onClick={() => Goreport()}>
                 <ButtonSection>
                 <Buttonp>신고조회</Buttonp>
                 <StyledArrowImage src={arrow} alt="checkimg"  width={30} height={30}/>

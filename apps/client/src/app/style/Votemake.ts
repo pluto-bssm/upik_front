@@ -147,3 +147,35 @@ export const WarnP = styled.p`
   color: #ED3020;
   
 `;
+
+
+export const OptionButton = styled(Button)`
+position: relative;
+
+color: #0158de;
+background-color: #FFFFFF;
+border-color: #0158de;
+
+&:hover {
+  background-color: #004cc0;
+  color: #FFFFFF;
+}
+  
+width : 12vh;
+height : 4vh;
+border: 2px solid #0158de;
+border-radius: 9999px;
+
+display : flex;
+align-items : center;
+justify-content : center;
+
+`;
+
+
+
+export const OptionC = styled.div`
+  display  : flex;
+  gap : 2vh;
+  margin-bottom : 3vh;
+`

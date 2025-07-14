@@ -3,22 +3,18 @@
 import { useState } from "react";
 import SubmitModal from "@/components/SubmitModal"; 
 import arrow from "@/app/images/arrow.svg";
-import Image from "next/image";
-
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import {
   Container,
   TitleWrapper,
   TitleInputWrapper,
-
   TitleInput,
   OptionsWrapper,
   OptionRow,
   OptionInput,
-
   AddOptionWrapper,
-
   ButtonsRow,
   InnerButtonsWrapper,
   Button,
@@ -27,25 +23,40 @@ import {
   Category,
   ReButton,
   StyledArrowImage
-
 } from "../style/Recommend";
 
-export default function recommend() {
-  const [options, setOptions] = useState(["", "","","",""]);
-  const [showModal, setShowModal] = useState(false); 
+export default function Recommend() {
+  const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
+  // searchParams.get 은 string | null 반환함
+  const catego = searchParams.get("catego") || "";
+  const title = searchParams.get("title") || "";
+  const optionsss = searchParams.get("optionsss") || "";
 
-  const router = useRouter() ;
+  const [options, setOptions] = useState(["", "", "", "", ""]);
 
-  function goMain(){
+  function goMain() {
     router.push("/");
   }
 
-
-
   return (
     <>
-      {showModal && <SubmitModal onClose={() => setShowModal(false)} onMain={() => router.push("/success")} />}
+      {showModal && (
+        <SubmitModal
+          onClose={() => setShowModal(false)}
+          onMain={() => {
+            const query = new URLSearchParams({
+              category: catego,
+              title: title,
+              options: optionsss,
+            }).toString();
+
+            router.push(`/success?${query}`);
+          }}
+        />
+      )}
 
       <Container>
         <TitleWrapper>
@@ -55,17 +66,17 @@ export default function recommend() {
           </TitleInputWrapper>
 
           <OptionsWrapper>
-            {options.map((option, id ) => (
+            {options.map((option, id) => (
               <OptionRow key={id}>
                 <OptionInput>
-                    <div className="flex flex-col w-[20vh]">
+                  <div className="flex flex-col w-[20vh]">
                     <Category>유머가이드</Category>
                     <p>가이드</p>
-                    </div>
-                    
-                    <ReButton>
+                  </div>
+
+                  <ReButton>
                     자세히보기
-                    <StyledArrowImage src={arrow} alt="checkimg"  width={16} height={16}/>
+                    <StyledArrowImage src={arrow} alt="checkimg" width={16} height={16} />
                   </ReButton>
                 </OptionInput>
               </OptionRow>
@@ -73,22 +84,15 @@ export default function recommend() {
 
             <AddOptionWrapper>
               <ButtonsRow>
-
                 <InnerButtonsWrapper>
-                  <Button onClick={goMain}>
-                    투표 제작하지 않기
-                  </Button>
+                  <Button onClick={goMain}>투표 제작하지 않기</Button>
                 </InnerButtonsWrapper>
 
                 <SubmitButton onClick={() => setShowModal(!showModal)}>투표 제작하기</SubmitButton>
-
               </ButtonsRow>
             </AddOptionWrapper>
-
           </OptionsWrapper>
-
         </TitleWrapper>
-
       </Container>
     </>
   );

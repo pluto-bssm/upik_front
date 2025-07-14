@@ -2,6 +2,18 @@
 
 import "./globals.css";
 import Sidebar from "./component/sidebar";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider as Provider,
+} from '@apollo/client';
+
+
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_BACKEND_URL,
+  cache: new InMemoryCache(),
+});
+
 
 export default function RootLayout({
   children,
@@ -11,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+      <Provider client={client}>
         <div className="flex flex-row">
           <div className="fixed">
             <Sidebar />
@@ -20,6 +33,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        </Provider>
       </body>
     </html>
   );
