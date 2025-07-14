@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+
 import {
   Container,
   VoteOption,
@@ -10,33 +12,64 @@ import {
   SubmitButton,
 } from "../style/Votemenu";
 
+import { useMutation } from "@apollo/client";
+import { POST_VOTERESUlT } from "../mutations";
 
-export default function Votemenu() {
-  const Lists = [
-    "까먹고 기숙사 소등 안 한 날 마주친 사감선생님",
-    "깃 충돌",
-    "학생증 검사중 깨달은 학교에 두고온 내 학생증",
-  ];
-
+export default function Votemenu({
+  options,
+  voteid,
+  votefihishedAt
+}: {
+  options: any[];
+  voteid: string;
+  votefihishedAt: string // voteid를 문자열로 전달받음
+}) {
+  const searchParams = useSearchParams();
   const navigate = useRouter();
   const [selected, setSelected] = useState<number | null>(null);
+
+  const [postVoteResult] = useMutation(POST_VOTERESUlT);
 
   const handleChange = (index: number) => {
     setSelected((prev) => (prev === index ? null : index));
   };
 
-  const voting = () => {
+  const voting = async () => {
     if (selected !== null) {
-      setSelected(null);
-      navigate.push("/tailvote");
+      const selectedOption = options[selected]; // 선택된 옵션 가져오기
+      try {
+        console.log(voteid)
+        console.log(selectedOption.id)
+        const response = await postVoteResult({
+          variables: {
+            voteId : voteid, // 전달받은 voteid 사용
+            optionId: selectedOption.id, // 선택된 옵션 ID 전달
+          },
+        });
+        console.log("투표 성공:", response.data);
+        setSelected(null);
+        const query = new URLSearchParams({
+          choseoptions : JSON.stringify(response.data),
+          fihishedAt : String(votefihishedAt)
+        });
+        navigate.push(`/tailvote?${query}`);
+        
+      } catch (error) {
+        console.error("투표 실패:", error);
+      }
     } else {
       alert("투표하고 진행해주세요");
     }
   };
 
+  if (!Array.isArray(options)) {
+    console.warn("Votemenu: options가 배열이 아님", options);
+    return <p>옵션이 존재하지 않습니다.</p>;
+  }
+
   return (
     <Container>
-      {Lists.map((item, index) => (
+      {options.map((item: any, index: number) => (
         <VoteOption
           key={index}
           selected={selected === index}
@@ -48,7 +81,7 @@ export default function Votemenu() {
             checked={selected === index}
             onChange={() => handleChange(index)}
           />
-          <OptionLabel>{item}</OptionLabel>
+          <OptionLabel>{item.content}</OptionLabel>
         </VoteOption>
       ))}
 

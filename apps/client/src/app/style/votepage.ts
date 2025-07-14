@@ -1,12 +1,26 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  display : flex;
+  flex-direction : column;
+  gap : 10vh;
+`;
 
 export const Card = styled.div`
+  border-radius : 10px;
   background-color: #FFFFFF;
   width: 120vh;
   height: 60vh;
-  border-radius: 2vh;
+`;
+
+export const ALERDYCard = styled.div`
+  display : flex;
+  align-items : center;
+  justify-content : center;
+  border-radius : 10px;
+  background-color: #FFFFFF;
+  width: 120vh;
+  height: 60vh;
 `;
 
 export const InfoWrapper = styled.div`
@@ -24,9 +38,16 @@ export const CategoryText = styled.p`
 export const TitleWrapper = styled.div`
   position: absolute;
   top: 3vh;
+  width : 100%;
 `;
 
 export const TitleText = styled.p`
+  color: #000000;
+  font-family: 'P_Regular';
+  font-size: 3vh;
+`;
+
+export const ALERDYTitleText = styled.p`
   color: #000000;
   font-family: 'P_Regular';
   font-size: 3vh;
@@ -44,8 +65,7 @@ export const DateText = styled.p`
 `;
 
 export const MenuWrapper = styled.div`
-  position: absolute;
-  top: 20vh;
-  left: 5vh;
-  height: auto;
+  position : absolute;
+  margin-top : -40vh;
+  margin-left : 5vh;
 `;

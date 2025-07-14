@@ -2,8 +2,18 @@
 
 import "./globals.css";
 import Sidebar from "./component/sidebar";
-import { ApolloProvider } from "@apollo/client";
-import client from "./api/apolloClient";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider as Provider,
+} from '@apollo/client';
+
+
+const client = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_BACKEND_URL,
+  cache: new InMemoryCache(),
+});
+
 
 export default function RootLayout({
   children,
@@ -13,17 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ApolloProvider client={client}>
-          <div className="flex flex-row">
-            <div className="fixed">
-              <Sidebar />
-            </div>
-
-            <div className="bg-[#EFF5FF] w-full min-h-[100vh] flex items-center justify-center">
-              {children}
-            </div>
+      <Provider client={client}>
+        <div className="flex flex-row">
+          <div className="fixed">
+            <Sidebar />
           </div>
-        </ApolloProvider>
+
+          <div className="bg-[#EFF5FF] w-full min-h-[100vh] flex items-center justify-center">
+            {children}
+          </div>
+        </div>
+        </Provider>
       </body>
     </html>
   );

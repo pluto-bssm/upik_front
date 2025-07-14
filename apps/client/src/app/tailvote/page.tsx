@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Tailvote_modal from "../Tailvote_modal/page";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import {
   Overlay,
   Wrapper,
@@ -18,9 +19,22 @@ import {
 } from "../style/Tailvote";
 
 export default function Tailvote() {
-  const category = "재미질문 > 꼬리질문1";
-  const title = "그 존재가 가장 무서운 이유는 무엇인가요?";
-  const date = "2025-05-23";
+  const searchParams = useSearchParams();
+  const choseoption = searchParams.get("choseoptions");
+  const fihishedAt = searchParams.get("fihishedAt");
+  let datas = null;
+  if(choseoption != null){
+     datas = JSON.parse(choseoption);
+    
+  }
+  console.log(datas.voteResponse.createVoteResponse.optionContent)
+  const choseoptions = datas.voteResponse.createVoteResponse.optionContent
+  
+  const category = "재미질문 > 꼬리질문";
+  const title = choseoptions + "을(를) 선택한 이유는 무엇인가요?";
+  const date = fihishedAt;
+
+  console.log(date)
 
   const [textcontext, changetext] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
