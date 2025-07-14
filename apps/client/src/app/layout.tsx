@@ -10,9 +10,10 @@ import {
 
 
 const client = new ApolloClient({
-  uri: "http://10.150.149.229:8080/graphql",
+  uri: process.env.NEXT_PUBLIC_BACKEND_URL,
   cache: new InMemoryCache(),
 });
+
 
 
 export default function RootLayout({
