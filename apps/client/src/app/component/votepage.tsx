@@ -10,11 +10,11 @@ import {
   DateText,
   InfoWrapper,
   TitleText,
-  MenuWrapper
+  MenuWrapper,
 } from "../style/votepage";
 
-import { useQuery } from '@apollo/client';
-import { GET_ALL_VOTES } from '../queries';
+import { useQuery } from "@apollo/client";
+import { GET_ALL_VOTES } from "../queries";
 
 export default function Votepage() {
   const { loading, error, data } = useQuery(GET_ALL_VOTES);
@@ -23,12 +23,9 @@ export default function Votepage() {
   if (error) return <p>에러 발생: {error.message}</p>;
   if (!data?.vote?.getAllVotes) return <p>투표 데이터 없음</p>;
 
-  
-
   return (
     <Container>
       {data.vote.getAllVotes.map((vote: any) => (
-        
         <div key={vote.id}>
           <Card>
             <InfoWrapper>
@@ -43,8 +40,12 @@ export default function Votepage() {
           </Card>
 
           <MenuWrapper>
-
-            <Votemenu options={Array.isArray(vote.options) ? vote.options : []} />
+            
+            <Votemenu
+              options={Array.isArray(vote.options) ? vote.options : []}
+              voteid={vote.id} 
+              votefihishedAt = {vote.finishedAt}
+            />
           </MenuWrapper>
         </div>
       ))}

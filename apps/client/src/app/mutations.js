@@ -8,3 +8,20 @@ export const POST_VOTE = gql`
     }
   }
 `;
+
+
+export const POST_VOTERESUlT = gql`
+mutation MyMutation($voteId : ID!,$optionId : ID!) {
+  voteResponse {
+    createVoteResponse(input: {voteId: $voteId, optionId: $optionId}) {
+      id
+      optionContent
+      optionId
+      userId
+      voteTitle
+      voteId
+      createdAt
+    }
+  }
+}
+`;

@@ -14,7 +14,6 @@ import {
   Container,
   TitleWrapper,
   TitleInputWrapper,
-  TitleLabel,
   TitleInput,
   OptionsWrapper,
   OptionRow,
