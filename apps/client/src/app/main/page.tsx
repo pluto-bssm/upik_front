@@ -1,64 +1,126 @@
 "use client";
 
-import styled from "styled-components";
 import MContentCard from "@/components/MContentBox";
-import color from "@/app/style/color";
-
-const voteContent = [
-  {
-    title: "차수민 선생님과 박제현 선생님과의 데이트",
-    date: "2025.05.23",
-    likes: 4,
-  },
-  {
-    title: "차수민 선생님과 박제현 선생님과의 데이트",
-    date: "2025.05.23",
-    likes: 4,
-  },
-  {
-    title: "차수민 선생님과 박제현 선생님과의 데이트",
-    date: "2025.05.23",
-    likes: 4,
-  },
-];
+import {
+  Container,
+  Main,
+  Grid,
+  Section,
+  Title,
+  CardList
+} from "@/app/style/Main";
+import { useQuery } from "@apollo/client";
+import { GUIDES_SELECT, VOTE_SELECT } from "@/app/api/query";
 
 export default function MainPage() {
+  // 가이드 데이터 가져오기
+  const { data: guideData, loading: guideLoading, error: guideError } = useQuery(GUIDES_SELECT, {
+    variables: { category: "재미" },
+  });
+
+  // 인기 있는 가이드 데이터 정렬 및 추출
+  const topGuides = guideData?.guidesByCategory
+    ? [...guideData.guidesByCategory]
+        .sort((a, b) => b.like - a.like)
+        .slice(0, 3)
+    : [];
+
+  // 최신 가이드 데이터 정렬 및 추출
+  const latestGuides = guideData?.guidesByCategory
+    ? [...guideData.guidesByCategory]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .slice(0, 3)
+    : [];
+
+  // 투표 데이터 가져오기
+  const { data: voteData, loading: voteLoading, error: voteError } = useQuery(VOTE_SELECT);
+
+  // 인기 있는 투표 데이터 정렬 및 추출
+  const mostPopularVotes = voteData?.vote?.getMostPopularOpenVote
+    ? [...(Array.isArray(voteData.vote.getMostPopularOpenVote) 
+        ? voteData.vote.getMostPopularOpenVote 
+        : [voteData.vote.getMostPopularOpenVote])]
+        .sort((a, b) => b.totalResponses - a.totalResponses)
+        .slice(0, 3)
+    : [];
+
+  // 오늘의 투표 데이터 정렬 및 추출
+  const latestVotes = voteData?.vote?.getMostPopularOpenVote
+    ? [...(Array.isArray(voteData.vote.getMostPopularOpenVote)
+        ? voteData.vote.getMostPopularOpenVote
+        : [voteData.vote.getMostPopularOpenVote])]
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        .slice(0, 3)
+    : [];
+
   return (
     <Container>
       <Main>
         <Grid>
+          {/* 인기 있는 투표 섹션 */}
           <Section>
             <Title>인기있는 투표</Title>
             <CardList>
-              {voteContent.map((post, idx) => (
-                <MContentCard key={idx} {...post} />
+              {voteLoading && <div>로딩중...</div>}
+              {voteError && <div>에러: {voteError.message}</div>}
+              {!voteLoading && !voteError && mostPopularVotes.length === 0 && <div>투표 없음</div>}
+              {mostPopularVotes.map((vote, idx) => (
+                <MContentCard
+                  key={vote.id || idx}
+                  title={vote.title}
+                  date={vote.finishedAt}
+                />
               ))}
             </CardList>
           </Section>
 
+          {/* 인기 있는 가이드 섹션 */}
           <Section>
             <Title>인기있는 가이드</Title>
             <CardList>
-              {voteContent.map((post, idx) => (
-                <MContentCard key={idx} title="가이드 1" date={post.date} />
+              {guideLoading && <div>로딩중...</div>}
+              {guideError && <div>에러: {guideError.message}</div>}
+              {!guideLoading && !guideError && topGuides.length === 0 && <div>가이드 없음</div>}
+              {topGuides.map((guide, idx) => (
+                <MContentCard
+                  key={guide.id || idx}
+                  title={guide.title}
+                  date={guide.createdAt}
+                />
               ))}
             </CardList>
           </Section>
 
+          {/* 오늘의 투표 섹션 */}
           <Section>
             <Title>오늘의 투표</Title>
             <CardList>
-              {voteContent.map((post, idx) => (
-                <MContentCard key={idx} {...post} />
+              {voteLoading && <div>로딩중...</div>}
+              {voteError && <div>에러: {voteError.message}</div>}
+              {!voteLoading && !voteError && latestVotes.length === 0 && <div>투표 없음</div>}
+              {latestVotes.map((vote, idx) => (
+                <MContentCard
+                  key={vote.id || idx}
+                  title={vote.title}
+                  date={vote.finishedAt}
+                />
               ))}
             </CardList>
           </Section>
 
+          {/* 오늘의 가이드 섹션 */}
           <Section>
             <Title>오늘의 가이드</Title>
             <CardList>
-              {voteContent.map((post, idx) => (
-                <MContentCard key={idx} title="가이드 1" date={post.date} />
+              {guideLoading && <div>로딩중...</div>}
+              {guideError && <div>에러: {guideError.message}</div>}
+              {!guideLoading && !guideError && latestGuides.length === 0 && <div>가이드 없음</div>}
+              {latestGuides.map((guide, idx) => (
+                <MContentCard
+                  key={guide.id || idx}
+                  title={guide.title}
+                  date={guide.createdAt}
+                />
               ))}
             </CardList>
           </Section>
@@ -67,44 +129,3 @@ export default function MainPage() {
     </Container>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-
-`;
-
-const Main = styled.main`
-  background-color: ${color.back_color};
-  min-height: 100vh;
-  flex: 1;
-  padding: 3.5rem 2.5rem;
-  margin-left: 242px;
-  width: 100%;
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-`;
-
-const Section = styled.section`
-  background-color: ${color.white};
-  width:93%;
-  height:100%;
-  padding: 1.5rem;
-  border-radius: 8px;
-`;
-
-const Title = styled.h2`
-  font-size: 24px;
-  font-color:${color.gray800};
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-`;
-
-const CardList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
