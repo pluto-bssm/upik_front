@@ -9,6 +9,7 @@ import color from "@/style/color";
 
 interface ReportMetaBoxProps {
   user: {
+    full_id: string;
     studentId: string;
     name: string;
     role: string;
@@ -51,8 +52,8 @@ const ReportBox = ({
       </StyledReportBox>
 
       <StyledButtonGroup>
-        <StyledGhostButton>허위신고</StyledGhostButton>
-        <StyledPrimaryButton>
+        <StyledGhostButton onClick={onIgnore}>허위신고</StyledGhostButton>
+        <StyledPrimaryButton onClick={onResolve}>
           해결 <MdCheck size={20} />
         </StyledPrimaryButton>
       </StyledButtonGroup>

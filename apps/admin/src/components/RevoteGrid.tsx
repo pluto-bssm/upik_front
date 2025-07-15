@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import styled from "@emotion/styled";
-
-import color from "../../../../packages/ui/colors";
 import RevoteCard from "@/components/RevoteCard";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +9,8 @@ interface Revote {
   user: string;
   date: string;
   id: string;
+  full_id: string;
+  total: number;
 }
 
 interface RevoteGridProps {

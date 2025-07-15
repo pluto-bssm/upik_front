@@ -8,8 +8,10 @@ import guide from "/guide.png";
 import admin from "/admin.png";
 import upik from "/upik.png";
 import { useRouter } from "next/navigation";
-import font from "../../../../packages/ui/fonts";
-import color from "../../../../packages/ui/colors";
+import color from "@/style/color";
+import font from "@/style/font";
+
+;
 
 const SidebarRoute = () => {
   const router = useRouter();
@@ -72,7 +74,7 @@ const StyledLayout = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: ${color.gray["700"]};
+  background-color: ${color.gray700};
   width: 242px;
   height: 100%;
   padding: 40.5px 35px;

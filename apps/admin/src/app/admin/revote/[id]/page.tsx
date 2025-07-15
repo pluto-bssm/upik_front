@@ -4,7 +4,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import RevoteReasonBox from "@/components/RevoteReasonBox";
-import font from "../../../../../../../packages/ui/fonts";
+import font from "@/style/font";
 
 export default function RevoteDetailPage() {
   return (
