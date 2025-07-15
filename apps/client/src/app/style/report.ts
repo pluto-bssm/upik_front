@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: 100vh;
   padding: 3rem;
   width : 100%;
-  margin-left : 35vh;
+  margin-left : 38vh;
 
 `;
 
@@ -27,10 +27,10 @@ export const Sub = styled.h1`
 
 export const ContentBox = styled.div`
     display: flex;
+    gap : 2vh;
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    gap: 1vh;
     width: 100%;
     height : 30vh;
     border-radius: 2vh;
@@ -159,7 +159,7 @@ export const ButtonContent =  styled.div`
 `;
 // 리스트 박스 (왼쪽)
 export const ListBox = styled.div`
-  width: 60vh;
+  width: 55vh;
   height: 60vh;
   background-color: #ffffff;
   border-radius: 1vh;
@@ -176,7 +176,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
   cursor: pointer;
   background-color: #fafafa;
   width: 90%;
-  height: 9vh;
+  height: 13vh;
   margin-bottom: 1vh;
   display: flex;
   flex-direction: column;
@@ -208,6 +208,13 @@ export const ListTitle = styled.p`
 
 `;
 
+export const TargetTitle = styled.p`
+  font-size: 2vh;
+  font-weight: 400;
+  color : #0158de;
+
+`;
+
 export const ListInfo = styled.div`
   display: flex;
   gap: 2vh;
@@ -231,7 +238,7 @@ export const DetailTitle = styled.p`
   font-size: 2.7vh;
   font-weight: 500;
   position : absolute;
-  top:-20vh;
+  top:-18vh;
 
 
 `;
@@ -239,13 +246,20 @@ export const DetailTitle = styled.p`
 export const DetailInfo = styled.p`
   font-size: 1.5vh;
   position : absolute;
-  top:-15vh;
+  top:-12vh;
 `;
 
 export const DetailContent = styled.p`
   font-size: 2vh;
   position : absolute;
   top:-7vh;
+  width:100%
+
+`;
+
+export const DetailREsonContent = styled.p`
+  font-size: 2vh;
+  margin-top : 6vh;
   width:100%
 
 `;
