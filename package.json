@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev --parallel",
+    "dev": "run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "prettier --write ."

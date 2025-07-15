@@ -2,21 +2,23 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { User, Calendar, Hash } from "lucide-react";
-import font from "../../../../packages/ui/fonts";
-import color from "../../../../packages/ui/colors";
 import { useRouter } from "next/navigation";
+import font from "@/style/font";
+import color from "@/style/color";
 
 interface RevoteCardProps {
   title: string;
   user: string;
   date: string;
+  full_id: string;
+  total: number;
   id: string;
 }
 
-const RevoteCard: React.FC<RevoteCardProps> = ({ title, user, date, id }) => {
+const RevoteCard: React.FC<RevoteCardProps> = ({ title, user, date, id,total,full_id}) => {
   const router = useRouter();
   return (
-    <CardContainer onClick={() => router.push(`/admin/revote/${id}`)}>
+    <CardContainer onClick={() => router.push(`/admin/revote/${full_id}`)}>
       <CardHeader>{title}</CardHeader>
       <InfoRow>
         <User size={16} /> <InfoText>{user}</InfoText>
@@ -37,7 +39,7 @@ const CardContainer = styled.div`
   background-color: ${color.white};
   border-radius: 12px;
   padding: 24px;
-  width: 100%;
+  width: 90%;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -45,8 +47,9 @@ const CardContainer = styled.div`
 `;
 
 const CardHeader = styled.h3`
-  font: ${font.H1};
-  margin: 0 0 16px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin: 0 0 16px;
 `;
 
 const InfoRow = styled.div`
@@ -54,9 +57,12 @@ const InfoRow = styled.div`
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-  color: ${color.gray["700"]};
+  color: ${color.gray700};
 `;
 
 const InfoText = styled.span`
-  ${font.H4};
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin: 0 ;
 `;
+

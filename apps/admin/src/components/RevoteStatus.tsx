@@ -2,10 +2,10 @@
 import { css } from "@emotion/react";
 import React from "react";
 import styled from "@emotion/styled";
-import color from "../../../../packages/ui/colors";
-import font from "../../../../packages/ui/fonts";
 import { User, Calendar, Hash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import font from "@/style/font";
+import color from "@/style/color";
 
 interface RevoteItem {
   id: string;
@@ -74,7 +74,7 @@ const RevoteList = styled.ul`
 `;
 
 const RevoteItemWrapper = styled.li`
-  background-color: ${color.gray[50]};
+  background-color: ${color.gray50};
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
@@ -87,6 +87,6 @@ const RevoteMetaRow = styled.div`
   align-items: center;
   gap: 8px;
   font-size: 0.875rem;
-  color: ${color.gray[700]};
+  color: ${color.gray700};
   margin-top: 4px;
 `;

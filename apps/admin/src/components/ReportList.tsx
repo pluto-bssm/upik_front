@@ -3,42 +3,42 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import styled from "@emotion/styled";
-import color from "../../../../packages/ui/colors";
-import font from "../../../../packages/ui/fonts";
+import color from "@/style/color";
+import font from "@/style/font";
 
 interface ReportItem {
-  id: string;
-  user: string;
-  date: string;
-  code: string;
+    id: string;
+    user: string;
+    code: string;
+    targetId: string;
 }
 
 interface ReportListProps {
-  title: string;
-  items: ReportItem[];
+    title: string;
+    items: ReportItem[];
 }
 
 const ReportList: React.FC<ReportListProps> = ({ title, items }) => {
-  const router = useRouter();
+    const router = useRouter();
 
-  return (
-    <ReportsContainer>
-      <ReportsHeader>{title}</ReportsHeader>
-      <ReportsList>
-        {items.map((item, idx) => (
-          <ReportsItem
-            key={`${item.id}-${idx}`}
-            onClick={() => router.push("/admin/report")}
-          >
-            <ReportsCode>{item.id}</ReportsCode>
-            <ReportsMeta>
-              {item.user} · {item.date} · {item.code}
-            </ReportsMeta>
-          </ReportsItem>
-        ))}
-      </ReportsList>
-    </ReportsContainer>
-  );
+    return (
+        <ReportsContainer>
+            <ReportsHeader>{title}</ReportsHeader>
+            <ReportsList>
+                {items.map((item, idx) => (
+                    <ReportsItem
+                        key={`${item.targetId.slice(0, 5)}-${idx}`}
+                        onClick={() => router.push("/admin/report")}
+                    >
+                        <ReportsCode>{item.targetId.slice(0, 5)}</ReportsCode>
+                        <ReportsMeta>
+                            {item.user} · {item.code}
+                        </ReportsMeta>
+                    </ReportsItem>
+                ))}
+            </ReportsList>
+        </ReportsContainer>
+    );
 };
 
 export default ReportList;
@@ -48,7 +48,7 @@ const ReportsContainer = styled.div`
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  height: fit-content;
+    width: 100%;
 `;
 
 const ReportsHeader = styled.h2`
@@ -62,7 +62,7 @@ const ReportsList = styled.ul`
 `;
 
 const ReportsItem = styled.li`
-  background-color: ${color.gray[50]};
+  background-color: ${color.gray50};
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
@@ -78,6 +78,6 @@ const ReportsCode = styled.span`
 
 const ReportsMeta = styled.div`
   font-size: 0.875rem;
-  color: ${color.black};
+  color: ${color.gray800};
   margin-top: 4px;
 `;

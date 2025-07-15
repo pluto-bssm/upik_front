@@ -1,44 +1,59 @@
 /** @jsxImportSource @emotion/react */
 "use client";
 
+import React from "react";
 import { useParams } from "next/navigation";
+import { useQuery, gql } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Users } from "lucide-react";
-import font from "../../../../packages/ui/fonts";
 import colors from "@/style/color";
+import font from "@/style/font";
 
-const dummyRevoteData = [
-  {
-    id: "0",
-    count: 3,
-    reasons: ["질문이 천박해요", "질문이 더러워요"],
-  },
-  {
-    id: "1",
-    count: 2,
-    reasons: ["질문이 너무 길어요", "보기 선택지가 없어요"],
-  },
-];
+const GET_REASON = gql`
+  query GetReportsByTarget($targetId: ID!) {
+    report {
+      getReportsByTarget(targetId: $targetId) {
+        reason
+        targetId
+        userId
+        createdAt
+      }
+    }
+  }
+`;
 
 export default function RevoteReasonBox() {
   const { id } = useParams();
-  const revote = dummyRevoteData.find((d) => d.id === id)!;
+
+  const { data, loading, error } = useQuery(GET_REASON, {
+    variables: { targetId: id },
+    skip: !id,
+  });
+
+  if (!id) return <p>🚫 targetId가 없습니다.</p>;
+  if (loading) return <p>로딩 중...</p>;
+  if (error) return <p>에러 발생: {error.message}</p>;
+
+  const reports = data?.report?.getReportsByTarget ?? [];
+
+  const reasons = reports.map((r: any) => r.reason);
+  const userCount = new Set(reports.map((r: any) => r.userId)).size;
 
   return (
-    <StyledRevoteContainer>
-      <StyledRevoteBox>
-        <StyledVoterCountRow>
-          <Users size={12} color={colors.gray800} />
-          <StyledVoterCountText>{revote.count}명</StyledVoterCountText>
-          <StyledReasonTitle>재투표 사유:</StyledReasonTitle>
-        </StyledVoterCountRow>
-        <StyledReasonList>
-          {revote.reasons.map((r, idx) => (
-            <StyledReasonItem key={idx}>• {r}</StyledReasonItem>
-          ))}
-        </StyledReasonList>
-      </StyledRevoteBox>
-    </StyledRevoteContainer>
+      <StyledRevoteContainer>
+        <StyledRevoteBox>
+          <StyledVoterCountRow>
+            <Users size={12} color={colors.gray800} />
+            <StyledVoterCountText>{userCount}명</StyledVoterCountText>
+            <StyledReasonTitle>재투표 사유:</StyledReasonTitle>
+          </StyledVoterCountRow>
+          <StyledReasonList>
+            {reasons.map((r: string, idx: number) => (
+                <StyledReasonItem key={idx}>• {r}</StyledReasonItem>
+            ))}
+          </StyledReasonList>
+        </StyledRevoteBox>
+      </StyledRevoteContainer>
   );
 }
 
@@ -82,6 +97,6 @@ const StyledReasonList = styled.ul`
 
 const StyledReasonItem = styled.li`
   font-size: 15px;
-  line-height: 1.6;
-  ${font.warn};
+  line-height: 2;
+  font:${font.warn};
 `;

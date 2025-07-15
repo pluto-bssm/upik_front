@@ -8,6 +8,7 @@ interface Record {
   user: string;
   date: string;
   code: string;
+  full_id: string;
 }
 
 interface RecordGridProps {

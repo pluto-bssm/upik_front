@@ -4,14 +4,13 @@ import React from "react";
 import { css } from "@emotion/react";
 import { useRouter } from "next/navigation";
 import styled from "@emotion/styled";
-import color from "../../../../packages/ui/colors";
-import font from "../../../../packages/ui/fonts";
+import color from "@/style/color";
+import font from "@/style/font";
 
 interface RevoteItem {
-  id: string;
-  user: string;
-  date: string;
-  code: string;
+    id: string;
+    title: string;
+    date: string;
 }
 
 interface RevoteListProps {
@@ -32,7 +31,7 @@ const RevoteList: React.FC<RevoteListProps> = ({ title, items }) => {
           >
             <RevotesCode>{item.id}</RevotesCode>
             <RevotesMeta>
-              {item.user} · {item.date} · {item.code}
+                {item.date} · {item.title}
             </RevotesMeta>
           </RevotesItem>
         ))}
@@ -47,8 +46,10 @@ const RevotesContainer = styled.div`
   background-color: ${color.white};
   border-radius: 12px;
   padding: 24px;
+    width: 100%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: fit-content;
+    gap:16px;
 `;
 
 const RevotesHeader = styled.h2`
@@ -62,7 +63,7 @@ const RevotesList = styled.ul`
 `;
 
 const RevotesItem = styled.li`
-  background-color: ${color.gray[50]};
+  background-color: ${color.gray50};
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
@@ -78,6 +79,6 @@ const RevotesCode = styled.span`
 
 const RevotesMeta = styled.div`
   font-size: 0.875rem;
-  color: ${color.black};
+  color: ${color.gray800};
   margin-top: 4px;
 `;
