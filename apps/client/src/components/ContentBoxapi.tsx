@@ -1,43 +1,63 @@
 "use client";
+
+import ContentCard from "@/components/ContentBox";
+import SearchBar from "@/components/SearchBar";
+import {
+  Container,
+  MainContent,
+  Header,
+  Title,
+  ContentList
+} from "@/app/style/Guide";
 import { useQuery } from "@apollo/client";
-import { GUIDES_BY_CATEGORY_QUERY } from "@/app/api/query";
-import ContentBox from "@/components/ContentBox";
-import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { FUN_GUIDES_QUERY, SERIOUS_GUIDES_QUERY } from "@/app/api/query";
 
-const httpLink = createHttpLink({
-  uri: "http://10.150.2.59:3001/graphql", 
-});
+export default function RoomGuidePage() {
+  const { data: funData, loading: funLoading, error: funError } = useQuery(FUN_GUIDES_QUERY);
+  const { data: seriousData, loading: seriousLoading, error: seriousError } = useQuery(SERIOUS_GUIDES_QUERY);
 
-const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache(),
-  defaultOptions: {
-    watchQuery: { errorPolicy: "all" },
-    query: { errorPolicy: "all" },
-  },
-});
+  const loading = funLoading || seriousLoading;
+  const error = funError || seriousError;
 
-export default function GuideList() {
-  const { data, loading, error } = useQuery(GUIDES_BY_CATEGORY_QUERY, {
-    variables: { category: "진지" },
+  console.log("현재 상태:", { 
+    loading: loading, 
+    error: error?.message, 
+    funData: funData,
+    seriousData: seriousData,
+    hasData: !!(funData || seriousData),
+    hasError: !!error
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <div>로딩중... (GraphQL 쿼리 실행 중)</div>;
+  if (error) return <div>에러: {error.message}</div>;
+  if (!funData && !seriousData) return <div>데이터가 없습니다.</div>;
+
+  // 모든 카테고리의 가이드를 합치기
+  const allGuides = [
+    ...(funData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "재미" })),
+    ...(seriousData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "진지" }))
+  ];
 
   return (
-    <div>
-      {data.guidesByCategory.map((guide: any) => (
-        <ContentBox
-          key={guide.id}
-          post={{
-            title: guide.title,
-            created_at: guide.createdAt,
-            like: guide.like,
-            content: guide.content,
-          }}
-        />
-      ))}
-    </div>
+      <Container>
+        <MainContent>
+          <Header>
+            <Title>기숙사 가이드</Title>
+            <SearchBar />
+          </Header>
+          <ContentList>
+            {allGuides.map((post: any, idx: number) => (
+              <ContentCard
+                key={post.id || idx}
+                post={{
+                  ...post,
+                  created_at: post.createdAt,
+                  category: post.category,
+                }}
+              />
+            ))}
+          </ContentList>
+        </MainContent>
+      </Container>
   );
 }

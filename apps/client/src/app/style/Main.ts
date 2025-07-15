@@ -22,7 +22,7 @@ export const Grid = styled.div`
 
 export const Section = styled.section`
   background-color: ${color.white};
-  width:93%;
+  width:423px;
   height:88%;
   padding: 1.5rem;
   border-radius: 8px;

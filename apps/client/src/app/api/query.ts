@@ -42,5 +42,53 @@ query MyQuery{
 }
 `;
 
+//투표 결과 보여주기. 막대그래프로
+export const VOTE_CHART = gql`
+  query MyQuery {
+  vote {
+    getAllVotes {
+      category
+      finishedAt
+      id
+      status
+      title
+      totalResponses
+      options {
+        content
+        id
+        percentage
+        responseCount
+      }
+    }
+  }
+}
+`;
+
+//재미 카테고리 가이드만 가져오기
+export const FUN_GUIDES_QUERY = gql`
+  query GetFunGuides {
+    guidesByCategory(category: "재미") {
+      id
+      content
+      createdAt
+      like
+      title
+    }
+  }
+`;
+
+//진지 카테고리 가이드만 가져오기
+export const SERIOUS_GUIDES_QUERY = gql`
+  query GetSeriousGuides {
+    guidesByCategory(category: "진지") {
+      id
+      content
+      createdAt
+      like
+      title
+    }
+  }
+`;
+
 export default client;
 

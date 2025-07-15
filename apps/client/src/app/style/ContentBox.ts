@@ -51,15 +51,6 @@ export const ButtonGroup = styled.div`
   margin-left:14px;
 `;
 
-export const ReportButton = styled.button`
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  transition: all 0.2s;
-  border: none;
-  background: none;
-  margin-left:-20px;
-`;
-
 export const HelpButton = styled.button<{ $isHelped: boolean }>`
   border: 1px solid  ${color.main};
   border-radius: 9999px;
@@ -91,13 +82,13 @@ export const VoteButton = styled.button`
   margin-left: auto;
 `;
 
-export const LogoImage = styled.img`
-  width: 24px;
-  height: auto;
-`;
-
 export const ContentList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 44px;
+`;
+
+export const Category = styled.div`
+  color:${color.main};
+  font-size:14px;
 `;
