@@ -13,22 +13,36 @@ import { useQuery } from "@apollo/client";
 import { GUIDES_SELECT, VOTE_SELECT } from "@/app/api/query";
 
 export default function MainPage() {
-  // 가이드 데이터 가져오기
-  const { data: guideData, loading: guideLoading, error: guideError } = useQuery(GUIDES_SELECT);
+  // 카테고리별로 가이드 데이터 가져오기
+  const { data: dormData, loading: dormLoading, error: dormError } = useQuery(GUIDES_SELECT, { variables: { category: "기숙사" } });
+  const { data: schoolData, loading: schoolLoading, error: schoolError } = useQuery(GUIDES_SELECT, { variables: { category: "학교생활" } });
+  const { data: humorData, loading: humorLoading, error: humorError } = useQuery(GUIDES_SELECT, { variables: { category: "유머" } });
 
-  // 인기 있는 가이드 데이터 정렬 및 추출
-  const topGuides = guideData?.guidesByCategory
-    ? [...guideData.guidesByCategory]
-        .sort((a, b) => b.like - a.like)
-        .slice(0, 3)
-    : [];
+  // 모든 카테고리의 가이드 합치기
+  const allGuides = [
+    ...(dormData?.guidesByCategory || []),
+    ...(schoolData?.guidesByCategory || []),
+    ...(humorData?.guidesByCategory || [])
+  ];
 
-  // 최신 가이드 데이터 정렬 및 추출
-  const latestGuides = guideData?.guidesByCategory
-    ? [...guideData.guidesByCategory]
-        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, 3)
-    : [];
+  // 인기있는 가이드: 좋아요 내림차순, 동점시 오래된 순
+  const topGuides = allGuides
+    .slice()
+    .sort((a, b) => {
+      if (b.like !== a.like) return b.like - a.like;
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+    })
+    .slice(0, 3);
+
+  // 오늘의 가이드: 최신순 3개
+  const latestGuides = allGuides
+    .slice()
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3);
+
+  // 로딩/에러 처리
+  const guideLoading = dormLoading || schoolLoading || humorLoading;
+  const guideError = dormError || schoolError || humorError;
 
   // 투표 데이터 가져오기
   const { data: voteData, loading: voteLoading, error: voteError } = useQuery(VOTE_SELECT);

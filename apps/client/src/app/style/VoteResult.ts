@@ -13,24 +13,24 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-    background-color: white;
+    background-color: ${color.white};
     border-radius: 8px;
     padding: 2.5rem;
     width: 600px;
-    height: 253px;
+    height: 20%;
 `;
 
 export const Title = styled.h2`
-    font-size: 2.25rem;
+    font-size: 28px;
     font-weight: 600;
-    color: black;
+    color: ${color.gray800};
     margin-bottom: 0.75rem;
 `;
 
 export const Description = styled.p`
-    color: black;
+    color: ${color.gray800};
     margin-bottom: 1.5rem;
-    font-size: 1.125rem;
+    font-size: 16px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -38,14 +38,15 @@ export const ButtonContainer = styled.div`
     justify-content: center;
     gap: 1rem;
     padding-bottom: 100px;
-    padding-left: 20rem;
+    padding-left: 397px;
 `;
 
 export const YesButton = styled.button`
-    background-color: #0158DE;
-    color: white;
+    background-color: ${color.main};
+    color: ${color.white};
     padding: 0.5rem 1.25rem;
-    font-size: 1.125rem;
+    font-size: 14px;
+    border: 1px solid ${color.main};
     border-radius: 100px;
 `;
 
@@ -53,8 +54,8 @@ export const BackButton = styled.button`
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    border: 1px solid #2563EB;
-    color: #2563EB;
+    border: 1px solid ${color.main};
+    color: ${color.main};
     padding: 0.5rem 1.25rem;
     font-size: 0.875rem;
     border-radius: 100px;

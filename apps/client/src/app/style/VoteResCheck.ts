@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import color from "@/app/style/color";
 
+export const Chartimg = styled.img`
+  width: 28px;
+  height: 28px;
+  
+`;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,32 +30,33 @@ export const ModalContent = styled.div`
   background-color: ${color.white};
   border-radius: 8px;
   width: 770px;
-  height: 596px;
+  min-height: 300px;
+  height: auto;
+  max-height: 90vh;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    width: 95vw;
+    padding: 1.2rem;
+  }
 `;
 
 export const Header = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 2.25rem;
+  font-size: 28px;
   font-weight: 600;
-  color: black;
+  color:${color.gray800};
   margin-bottom: 1.5rem;
 `;
 
-export const VoteType = styled.h4`
-  color: ${color.main};
-  font-size: 1rem;
-`;
-
 export const VoteTitle = styled.h2`
-  font-size: 1.75rem;
+  font-size: 22px;
   font-weight: 500;
-  color: black;
+  color:${color.gray800};
   margin-bottom: 1rem;
 `;
 
@@ -72,6 +78,7 @@ export const VoteList = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 2rem;
 `;
 
 export const RequestButton = styled.button`
@@ -86,5 +93,6 @@ export const RequestButton = styled.button`
   justify-content: center;
   gap: 0.5rem;
   border: none;
+  margin-right:-345px;
 `;
 

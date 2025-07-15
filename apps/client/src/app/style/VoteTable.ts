@@ -21,6 +21,7 @@ export const ProgressBar = styled.div<ProgressBarProps>`
   background-color: #FAFAFA;
   width: ${props => props.percent}%;
   transition: width 0.3s ease-in-out;
+  border-radius: 0.5rem;
 `;
 
 export const Content = styled.div`
@@ -37,11 +38,13 @@ export const Content = styled.div`
 
 export const Text = styled.span`
   font-size: 1.125rem;
+  color:${color.gray800};
+  margin-right:540px;
 `;
 
 export const Percent = styled.span`
-  font-size: 1.25rem;
+  font-size: 16px;
   font-weight: 500;
-  color: #0D0D0D;
+  color:${color.gray800};
 `;
   
