@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import color from "@/app/style/color";
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+`;
+
 export const ModalOverlay = styled.div`
   position: fixed;
   inset: 0;
@@ -13,7 +22,7 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background-color: white;
+  background-color: ${color.white};
   border-radius: 8px;
   width: 770px;
   height: 596px;
@@ -34,7 +43,7 @@ export const Header = styled.div`
 `;
 
 export const VoteType = styled.h4`
-  color: #0158DE;
+  color: ${color.main};
   font-size: 1rem;
 `;
 
@@ -49,7 +58,7 @@ export const DateContainer = styled.div`
   display: flex;
   align-items: center;
   font-size: 0.875rem;
-  color: #9CA3AF;
+  color: ${color.gray200};
   margin-bottom: 1.5rem;
   gap: 0.5rem;
 `;
@@ -68,13 +77,14 @@ export const ButtonContainer = styled.div`
 export const RequestButton = styled.button`
   width: 286px;
   height: 44px;
-  background-color: #2563EB;
-  color: white;
+  background-color: ${color.main};
+  color: ${color.white};
   border-radius: 100px;
   padding: 0.5rem 1.25rem;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  border: none;
 `;
 

@@ -28,8 +28,8 @@ export const Content = styled.div`
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 1.5rem;
+  justify-content: center; 
+  gap: 2rem; 
   font-size: 16px;
   font-weight: 500;
   z-index: 10;

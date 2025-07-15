@@ -66,7 +66,7 @@ export const HelpButton = styled.button<{ $isHelped: boolean }>`
     background-color:  ${color.main};
     color:  ${color.white};
   }
-  margin-left:10px;
+  margin-left:-5px;
 `;
 export const Category = styled.div`
   color:${color.main};

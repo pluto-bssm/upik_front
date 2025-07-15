@@ -43,26 +43,29 @@ query MyQuery{
 }
 `;
 
-//투표 결과 보여주기. 막대그래프로
+//voteid갖고 투표결과확인(최최최종)
 export const VOTE_CHART = gql`
-  query MyQuery {
+query MyQuery($id: ID!) {
   vote {
-    getAllVotes {
+    getVoteById(id: $id) {
       category
+      createdBy
       finishedAt
+      hasVoted
       id
+      options {
+        content
+        percentage
+        responseCount
+        id
+      }
       status
       title
       totalResponses
-      options {
-        content
-        id
-        percentage
-        responseCount
-      }
     }
   }
 }
+
 `;
 
 export default client;

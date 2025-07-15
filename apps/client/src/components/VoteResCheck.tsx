@@ -6,7 +6,7 @@ import {
   ModalOverlay,
   ModalContent,
   Header,
-  VoteType,
+  Container,
   VoteTitle,
   DateContainer,
   VoteList,
@@ -35,37 +35,50 @@ interface Vote {
 export default function VoteResCheck({ voteId, onClose }: { voteId: string; onClose: () => void }) {
   const [modalMode1, setModalMode1] = useState<"none" | "vote_res" >("none");
 
-  const { data, loading, error } = useQuery(VOTE_CHART);
+  // voteId를 쿼리 변수로 넘김
+  const { data, loading, error } = useQuery(VOTE_CHART, {
+    variables: { id: voteId },
+  });
 
-  if (loading) return <div>로딩중...</div>;
-  if (error) return <div>에러: {error.message}</div>;
+  if (loading) {
+    console.log("로딩중");
+    return null;
+  }
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
-  // voteId로 투표 데이터 찾기
-  const vote: Vote | undefined = data?.vote?.getAllVotes?.find((v: Vote) => v.id === voteId);
+  // getVoteById 결과 구조에 맞게 vote 데이터 추출
+  const vote = data?.vote?.getVoteById;
 
-  if (!vote) return <div>해당 투표 데이터가 없습니다.</div>;
+  if (!vote) {
+    console.log("해당 투표 데이터가 없습니다.");
+    return null;
+  }
 
   const ques = {
-    vtype: vote.type,
+    vtype: vote.category, // category를 타입처럼 사용
     voteTitle: vote.title,
-    voteRes: vote.options.map((option: VoteOption) => ({
+    voteRes: vote.options.map((option: any) => ({
       text: option.content,
       percent: option.percentage,
       selected: option.selected,
     })),
-    date: vote.date,
+    date: vote.finishedAt,
+    status: vote.status,
+    totalResponses: vote.totalResponses,
   };
 
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
+        <Container>
         <div>
           <Header>
             <ChartNoAxesColumn size={36} />
             투표 결과 보기
           </Header>
-
-          <VoteType>{ques.vtype}</VoteType>
           <VoteTitle>{ques.voteTitle}</VoteTitle>
           <DateContainer>
             <span>{ques.date} 투표 마감</span>
@@ -84,11 +97,12 @@ export default function VoteResCheck({ voteId, onClose }: { voteId: string; onCl
         </div>
 
         <ButtonContainer>
-          <RequestButton onClick={() => setModalMode1("vote_res")}>
+          <RequestButton onClick={() => setModalMode1("vote_res")}> 
             관리자에게 재투표 요청 보내기
             <Send size={18} />
           </RequestButton>
         </ButtonContainer>
+        </Container>
       </ModalContent>
       {modalMode1 === "vote_res" && (
         <VoteResult

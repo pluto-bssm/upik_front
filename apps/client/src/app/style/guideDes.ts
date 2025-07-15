@@ -50,7 +50,7 @@ export const GuideContent = styled.p`
   font-size: 1.8vh;
   line-height: 3.2vh;
   white-space: pre-wrap;
-  width : 57%;
+  width : 55%;
   position: absolute; 
   top: 30vh;
 `;

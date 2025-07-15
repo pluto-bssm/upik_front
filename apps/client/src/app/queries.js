@@ -53,6 +53,7 @@ query MyQuery {
       targetType
       createdAt
       reason
+      id
     }
   }
 }

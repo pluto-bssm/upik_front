@@ -46,7 +46,8 @@ type Post = {
   createdAt : String,
   targetId : String,
   targetTitle : String,
-  content : String
+  content : String,
+  id : String
 
 };
 
@@ -88,8 +89,8 @@ export default function Mypage() {
       <Sub>신고기록 조회</Sub>
       <ContentBox>
         <ListBox>
-          {reportdata.map((item: any) => (
-            <ListItem
+          {reportdata.map((item: any) => ( 
+            <ListItem 
               key={item.targetId}
               onClick={() =>
                 selectedPost?.targetTitle === item.targetTitle ? setSelectedPost(null) : setSelectedPost(item)
