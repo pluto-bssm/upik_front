@@ -11,7 +11,6 @@ import {
   ButtonGroup,
   HelpButton,
   VoteButton,
-  Category
 } from "@/app/style/ContentBox";
 
 interface PostProps {
@@ -60,7 +59,6 @@ export default function ContentBox({ post }: PostProps) {
         </DateWrapper>
         <ContentText>{post.content}</ContentText>
         <ButtonGroup>
-          <Category>{post.category}</Category>
           <HelpButton onClick={handleHelpClick} $isHelped={isHelped}>
             <ThumbsUp size={16} />
             도움이 되었어요 | {helpCount}명

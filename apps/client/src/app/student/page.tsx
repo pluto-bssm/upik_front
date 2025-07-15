@@ -11,6 +11,7 @@ import {
 } from "../style/Guide";
 import { useQuery } from "@apollo/client";
 import { FUN_GUIDES_QUERY, SERIOUS_GUIDES_QUERY } from "@/app/api/query";
+import { useState } from "react";
 
 export default function StudentPage() {
   const { data: funData, loading: funLoading, error: funError } = useQuery(FUN_GUIDES_QUERY);
@@ -32,21 +33,30 @@ export default function StudentPage() {
   if (error) return <div>에러: {error.message}</div>;
   if (!funData && !seriousData) return <div>데이터가 없습니다.</div>;
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   // 모든 카테고리의 가이드를 합치기
   const allGuides = [
     ...(funData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "재미" })),
     ...(seriousData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "진지" }))
   ];
 
+  // 검색어가 있으면 title에 한 글자라도 포함된 것만 필터
+  const filteredGuides = searchTerm
+    ? allGuides.filter((post: any) =>
+        searchTerm.split("").some((char) => post.title.includes(char))
+      )
+    : allGuides;
+
   return (
     <Container>
       <MainContent>
         <Header>
-          <Title>재학생 가이드</Title>
-          <SearchBar />
+          <Title>유머 가이드</Title>
+          <SearchBar onSearch={setSearchTerm} />
         </Header>
         <ContentList>
-          {allGuides.map((post: any, idx: number) => (
+          {filteredGuides.map((post: any, idx: number) => (
             <ContentCard
               key={post.id || idx}
               post={{

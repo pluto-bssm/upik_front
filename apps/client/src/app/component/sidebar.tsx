@@ -39,8 +39,8 @@ const GuideSection = ({ isOpen, toggle }: { isOpen: boolean; toggle: () => void 
     <Title active={isOpen} onClick={toggle}>가이드</Title>
     {isOpen && (
       <div style={{ marginTop: "0.5vh", display: "flex", flexDirection: "column", gap: "1vh" }}>
-        <SubLink href="/school"><SubText>학교생활가이드</SubText></SubLink>
-        <SubLink href="/student"><SubText>재학생 가이드</SubText></SubLink>
+        <SubLink href="/school"><SubText>학교생활 가이드</SubText></SubLink>
+        <SubLink href="/student"><SubText>유머 가이드</SubText></SubLink>
         <SubLink href="/roomGuide"><SubText>기숙사 가이드</SubText></SubLink>
       </div>
     )}

@@ -11,6 +11,7 @@ import {
 } from "../style/Guide";
 import { useQuery } from "@apollo/client";
 import { FUN_GUIDES_QUERY, SERIOUS_GUIDES_QUERY } from "@/app/api/query";
+import { useState } from "react";
 
 export default function RoomGuidePage() {
   const { data: funData, loading: funLoading, error: funError } = useQuery(FUN_GUIDES_QUERY);
@@ -18,6 +19,8 @@ export default function RoomGuidePage() {
 
   const loading = funLoading || seriousLoading;
   const error = funError || seriousError;
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   console.log("현재 상태:", { 
     loading: loading, 
@@ -38,15 +41,22 @@ export default function RoomGuidePage() {
     ...(seriousData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "진지" }))
   ];
 
+  // 검색어가 있으면 title에 한 글자라도 포함된 것만 필터
+  const filteredGuides = searchTerm
+    ? allGuides.filter((post: any) =>
+        searchTerm.split("").some((char) => post.title.includes(char))
+      )
+    : allGuides;
+
   return (
       <Container>
         <MainContent>
           <Header>
             <Title>기숙사 가이드</Title>
-            <SearchBar />
+            <SearchBar onSearch={setSearchTerm} />
           </Header>
           <ContentList>
-            {allGuides.map((post: any, idx: number) => (
+            {filteredGuides.map((post: any, idx: number) => (
               <ContentCard
                 key={post.id || idx}
                 post={{
