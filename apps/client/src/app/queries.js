@@ -104,3 +104,21 @@ query MyQuery($gid : ID!) {
 
 `;
 
+
+export const Desguide = gql`
+query MyQuery($id : ID!) {
+  guide {
+    guideById(id: $id) {
+      id
+      category
+      content
+      createdAt
+      guideType
+      likeCount
+      revoteCount
+      title
+      voteId
+    }
+  }
+}
+`;
