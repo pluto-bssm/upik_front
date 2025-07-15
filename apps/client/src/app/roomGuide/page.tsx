@@ -60,6 +60,4 @@ export default function RoomGuidePage() {
         </MainContent>
       </Container>
   );
-} 
-
-
+}

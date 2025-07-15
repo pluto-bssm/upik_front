@@ -5,11 +5,12 @@ import client from "./apolloClient";
 export const GUIDES_BY_CATEGORY_QUERY = gql`
   query MyQuery($category: String!) {
     guidesByCategory(category: $category) {
-      id
       content
       createdAt
+      id
       like
       title
+      voteId
     }
   }
 `;
@@ -91,4 +92,3 @@ export const SERIOUS_GUIDES_QUERY = gql`
 `;
 
 export default client;
-

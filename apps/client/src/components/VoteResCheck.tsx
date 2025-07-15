@@ -32,7 +32,7 @@ interface Vote {
   date?: string;
 }
 
-export default function VoteResCheck({ guideId, onClose }: { guideId: string; onClose: () => void }) {
+export default function VoteResCheck({ voteId, onClose }: { voteId: string; onClose: () => void }) {
   const [modalMode1, setModalMode1] = useState<"none" | "vote_res" >("none");
 
   const { data, loading, error } = useQuery(VOTE_CHART);
@@ -40,8 +40,8 @@ export default function VoteResCheck({ guideId, onClose }: { guideId: string; on
   if (loading) return <div>로딩중...</div>;
   if (error) return <div>에러: {error.message}</div>;
 
-  // id로 투표 데이터 찾기
-  const vote: Vote | undefined = data?.vote?.getAllVotes?.find((v: Vote) => v.id === guideId);
+  // voteId로 투표 데이터 찾기
+  const vote: Vote | undefined = data?.vote?.getAllVotes?.find((v: Vote) => v.id === voteId);
 
   if (!vote) return <div>해당 투표 데이터가 없습니다.</div>;
 

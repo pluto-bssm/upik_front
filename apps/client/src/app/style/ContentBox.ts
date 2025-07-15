@@ -66,7 +66,14 @@ export const HelpButton = styled.button<{ $isHelped: boolean }>`
     background-color:  ${color.main};
     color:  ${color.white};
   }
-  margin-left:-7px;
+  margin-left:10px;
+`;
+export const Category = styled.div`
+  color:${color.main};
+  font-size:16px;
+  font-weight: bold;
+  margin-left: 7px;
+  margin-bottom: 0.5rem;
 `;
 
 export const VoteButton = styled.button`
@@ -88,7 +95,3 @@ export const ContentList = styled.div`
   gap: 44px;
 `;
 
-export const Category = styled.div`
-  color:${color.main};
-  font-size:1px;
-`;

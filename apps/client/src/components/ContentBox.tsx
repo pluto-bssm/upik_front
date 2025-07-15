@@ -18,6 +18,7 @@ interface PostProps {
   post: {
     id: string;
     title: string;
+    voteId:string;
     created_at: string;
     like: number;
     content: string;
@@ -70,8 +71,8 @@ export default function ContentBox({ post }: PostProps) {
         </ButtonGroup>
         {modalMode === "vote" && (
           <>
-            {console.log("VoteResCheck 렌더링: guideId =", post.id)}
-            <VoteResCheck guideId={post.id} onClose={closeModal} />
+            {console.log("VoteResCheck 렌더링: voteId =", post.voteId)}
+            <VoteResCheck voteId={post.voteId} onClose={closeModal} />
           </>
         )}
       </CardGroup>
