@@ -47,11 +47,12 @@ export const REPORT = gql`
 query MyQuery {
   report {
     getMyReports {
+      authorName
+      content
+      targetTitle
+      targetType
       createdAt
       reason
-      targetId
-      targetType
-      userId
     }
   }
 }
@@ -89,4 +90,17 @@ query MyQuery($title : String!) {
 }
 `;
 
+
+export const GuidesType = gql`
+query MyQuery($gid : ID!) {
+  guide {
+    guideById(id: $gid) {
+      id
+      category
+      title
+    }
+  }
+}
+
+`;
 

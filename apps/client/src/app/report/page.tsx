@@ -31,7 +31,9 @@ import {
   BackButtonWrapper,
   BackArrowImage,
   DetailWrapper,
-  CheckResultButton
+  CheckResultButton,
+  TargetTitle,
+  DetailREsonContent
 } from "../style/report";
 
 const name = "1134박기주";
@@ -43,6 +45,8 @@ type Post = {
   reason  :String,
   createdAt : String,
   targetId : String,
+  targetTitle : String,
+  content : String
 
 };
 
@@ -88,16 +92,16 @@ export default function Mypage() {
             <ListItem
               key={item.targetId}
               onClick={() =>
-                selectedPost?.reason === item.reason ? setSelectedPost(null) : setSelectedPost(item)
+                selectedPost?.targetTitle === item.targetTitle ? setSelectedPost(null) : setSelectedPost(item)
               }
-              selected={selectedPost?.reason === item.reason}
+              selected={selectedPost?.targetTitle === item.targetTitle}
             >
               <ListItemInner>
-                <ListTitle>신고사유 : {item.reason}</ListTitle>
+              <TargetTitle>{item.targetType}</TargetTitle>
+                <ListTitle>{item.targetTitle}</ListTitle>
                 <ListInfo>
-                  <p>{item.userId}</p>
+                  <p>{item.authorName}</p>
                   <p>{item.createdAt}</p>
-                  <p>{item.targetId}</p>
                 </ListInfo>
               </ListItemInner>
             </ListItem>
@@ -107,9 +111,11 @@ export default function Mypage() {
         {selectedPost && (
           <DetailBox>
             <DetailWrapper>
-              <DetailTitle>{selectedPost.reason}</DetailTitle>
+              <DetailTitle>{selectedPost.targetTitle}</DetailTitle>
               <DetailInfo>{selectedPost.createdAt} 제작</DetailInfo>
-              <DetailContent>{selectedPost.targetId}</DetailContent>
+              <DetailContent>{selectedPost.content}</DetailContent>
+
+              <DetailREsonContent>신고사유 : {selectedPost.reason}</DetailREsonContent>
               <CheckResultButton>
                 결과확인하기
                 <Images src={arrow5} alt="arrow" />

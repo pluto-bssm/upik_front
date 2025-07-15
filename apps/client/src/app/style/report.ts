@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: 100vh;
   padding: 3rem;
   width : 100%;
-  margin-left : 35vh;
+  margin-left : 38vh;
 
 `;
 
@@ -27,7 +27,7 @@ export const Sub = styled.h1`
 
 export const ContentBox = styled.div`
     display: flex;
-    gap : 8vh;
+    gap : 2vh;
     flex-direction: row;
     align-items: center;
     justify-content: start;
@@ -208,6 +208,13 @@ export const ListTitle = styled.p`
 
 `;
 
+export const TargetTitle = styled.p`
+  font-size: 2vh;
+  font-weight: 400;
+  color : #0158de;
+
+`;
+
 export const ListInfo = styled.div`
   display: flex;
   gap: 2vh;
@@ -231,7 +238,7 @@ export const DetailTitle = styled.p`
   font-size: 2.7vh;
   font-weight: 500;
   position : absolute;
-  top:-20vh;
+  top:-18vh;
 
 
 `;
@@ -239,13 +246,20 @@ export const DetailTitle = styled.p`
 export const DetailInfo = styled.p`
   font-size: 1.5vh;
   position : absolute;
-  top:-15vh;
+  top:-12vh;
 `;
 
 export const DetailContent = styled.p`
   font-size: 2vh;
   position : absolute;
   top:-7vh;
+  width:100%
+
+`;
+
+export const DetailREsonContent = styled.p`
+  font-size: 2vh;
+  margin-top : 6vh;
   width:100%
 
 `;
