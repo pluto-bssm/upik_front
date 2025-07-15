@@ -90,5 +90,5 @@ export const ContentList = styled.div`
 
 export const Category = styled.div`
   color:${color.main};
-  font-size:18px;
+  font-size:1px;
 `;
