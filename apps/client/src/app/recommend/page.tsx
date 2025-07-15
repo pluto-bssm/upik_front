@@ -70,7 +70,10 @@ export default function Recommend() {
 
   function Gotoguide(gid: string) {
     console.log("선택한 가이드 ID:", gid);
-   
+    const query = new URLSearchParams({
+      id : gid
+    }).toString();
+    router.push(`/guide?${query}`);
   }
 
   if (loading) return <div><WarnP>로딩 중...</WarnP></div>;
@@ -117,15 +120,16 @@ export default function Recommend() {
                     <Category>{guide.category}가이드</Category>
                     <p>{guide.title}</p>
                   </div>
-                  <ReButton>
+                  <ReButton
+                  onClick={() => Gotoguide(guide.id)}>
                     자세히보기
                     <StyledArrowImage
                       src={arrow}
                       alt="checkimg"
                       width={16}
                       height={16}
-                      onClick={() => Gotoguide(guide.id)}
                     />
+
                   </ReButton>
                 </OptionInput>
               </OptionRow>
