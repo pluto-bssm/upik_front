@@ -10,43 +10,28 @@ import {
   ContentList
 } from "../style/Guide";
 import { useQuery } from "@apollo/client";
-import { FUN_GUIDES_QUERY, SERIOUS_GUIDES_QUERY } from "@/app/api/query";
+import { GUIDES_BY_CATEGORY_QUERY } from "@/app/api/query";
 import { useState } from "react";
 
 export default function StudentPage() {
-  const { data: funData, loading: funLoading, error: funError } = useQuery(FUN_GUIDES_QUERY);
-  const { data: seriousData, loading: seriousLoading, error: seriousError } = useQuery(SERIOUS_GUIDES_QUERY);
-
-  const loading = funLoading || seriousLoading;
-  const error = funError || seriousError;
-
-  console.log("현재 상태:", { 
-    loading: loading, 
-    error: error?.message, 
-    funData: funData,
-    seriousData: seriousData,
-    hasData: !!(funData || seriousData),
-    hasError: !!error
+  const { data, loading, error } = useQuery(GUIDES_BY_CATEGORY_QUERY, {
+    variables: { category: "유머" }
   });
-
-  if (loading) return <div>로딩중... (GraphQL 쿼리 실행 중)</div>;
-  if (error) return <div>에러: {error.message}</div>;
-  if (!funData && !seriousData) return <div>데이터가 없습니다.</div>;
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  // 모든 카테고리의 가이드를 합치기
-  const allGuides = [
-    ...(funData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "재미" })),
-    ...(seriousData?.guidesByCategory || []).map((guide: any) => ({ ...guide, category: "진지" }))
-  ];
+  if (loading) return <div>로딩중... (GraphQL 쿼리 실행 중)</div>;
+  if (error) return <div>에러: {error.message}</div>;
+  if (!data?.guidesByCategory) return <div>데이터가 없습니다.</div>;
+
+  const guides = data.guidesByCategory;
 
   // 검색어가 있으면 title에 한 글자라도 포함된 것만 필터
   const filteredGuides = searchTerm
-    ? allGuides.filter((post: any) =>
+    ? guides.filter((post: any) =>
         searchTerm.split("").some((char) => post.title.includes(char))
       )
-    : allGuides;
+    : guides;
 
   return (
     <Container>
@@ -62,7 +47,6 @@ export default function StudentPage() {
               post={{
                 ...post,
                 created_at: post.createdAt,
-                category: post.category,
               }}
             />
           ))}

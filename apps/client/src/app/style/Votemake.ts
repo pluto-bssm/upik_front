@@ -28,6 +28,17 @@ export const TitleLabel = styled.p`
   font-size: 2vh;
 `;
 
+export const OptionHr = styled.div`
+  border-bottom: 1px solid black;
+  width : 25vh;
+
+  color : #000000;
+
+  position : relative;
+  top: -3vh;
+  
+`;
+
 export const TitleInput = styled.input`
   border: none;
   outline: none;
@@ -149,33 +160,27 @@ export const WarnP = styled.p`
 `;
 
 
-export const OptionButton = styled(Button)`
-position: relative;
+export const OptionButton = styled.p<{ selected: boolean }>`
+  position: relative;
 
-color: #0158de;
-background-color: #FFFFFF;
-border-color: #0158de;
+  color: ${({ selected }) => (selected ? "#0158de" : "#000000")};
+  &:hover {
+    color: #0158de;
+  }
 
-&:hover {
-  background-color: #004cc0;
-  color: #FFFFFF;
-}
-  
-width : 12vh;
-height : 4vh;
-border: 2px solid #0158de;
-border-radius: 9999px;
+  width: 8vh;
+  height: 4vh;
 
-display : flex;
-align-items : center;
-justify-content : center;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
-
 
 
 export const OptionC = styled.div`
   display  : flex;
   gap : 2vh;
   margin-bottom : 3vh;
+  position: relative;
+  right : 2.5vh;
 `

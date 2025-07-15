@@ -11,9 +11,13 @@ import {
 
 const client = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_BACKEND_URL,
+<<<<<<< HEAD
   // uri: "http://10.150.149.229:8080/graphql",
+=======
+>>>>>>> 9e2ff44bda995018e4e17f34122dac01a6f7f15c
   cache: new InMemoryCache(),
 });
+
 
 
 export default function RootLayout({

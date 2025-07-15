@@ -7,7 +7,7 @@ import OptionModal from "@/components/OptionModal";
 import WornModal from "@/components/WornModal"; 
 import { useRouter } from "next/navigation";
 
-import { useQuery } from '@apollo/client';
+import client from "../apolloClient"; // 이미 있음
 import { GET_AIOPTION } from '../queries';
 
 import {
@@ -27,7 +27,8 @@ import {
   SubmitButton,
   WarnP,
   OptionButton,
-  OptionC
+  OptionC,
+  OptionHr
 } from "../style/Votemake";
 
 export default function Votemake() {
@@ -41,7 +42,7 @@ export default function Votemake() {
   const [IStitle, setIstitle] = useState(false);
   const router = useRouter();
 
-  const maxAiUse = 3;
+  const maxAiUse = 1;
 
   const handleAddOption = () => {
     if (optionss.length < 5) {
@@ -76,14 +77,13 @@ export default function Votemake() {
   }, [title]);
 
 
-  const { loading, error, data, refetch } = useQuery(GET_AIOPTION, {
-    variables: {
-      count: optionss.length,
-      title: title,
-    },
-  });
 
   const handleAIRecommend = () => {
+
+    const filled = optionss.filter((opt) => opt.trim() !== "");
+    const emptyCount = optionss.length - filled.length;
+
+
     if (title.length === 0) {
       setShowModal_title(true);
     } else {
@@ -91,22 +91,72 @@ export default function Votemake() {
         setShowModal(true);
         return;
       }
-
+  
+      const controller = new AbortController();
+  
+      // 10분 타임아웃
+      const timeout = setTimeout(() => {
+        controller.abort();
+      }, 10 * 60 * 1000); // 600,000ms = 10분
+      
+      console.log(emptyCount,title)
       
 
-      if (loading) {
-        console.log("AI가 선지를 생성 중입니다...");
-      } else if (error) {
-        console.error("Error:", error.message);
-      } else if (data) {
-        console.log("데이터 생성 완료");
-        setOptionss(data.optionGenerator.generateOptions.options);
-        setAiUseCount(aiUseCount + 1);
-      } else {
-        refetch(); // 데이터를 다시 가져오도록 요청
+      const tempOptions = [...optionss];
+      for (let i = 0; i < tempOptions.length; i++) {
+        if (tempOptions[i].trim() === "") {
+          tempOptions[i] = "AI 선지 생성 중...";
+        }
       }
+      setOptionss(tempOptions);
+      
+      client.query({
+        query: GET_AIOPTION,
+        variables: {
+          count: emptyCount,
+          title: title,
+        },
+        context: {
+          fetchOptions: {
+            signal: controller.signal,
+          },
+        },
+      })
+      .then((res) => {
+        clearTimeout(timeout);
+      
+        const aiOptions = res?.data?.optionGenerator?.generateOptions?.options;
+      
+        if (aiOptions && aiOptions.length > 0) {
+          const updatedOptions = [...tempOptions]; // 여기서 다시 사용해야 함
+          let aiIndex = 0;
+
+          for (let i = 0; i < updatedOptions.length; i++) {
+            if (updatedOptions[i] === "AI 선지 생성 중..." && aiIndex < aiOptions.length) {
+              updatedOptions[i] = aiOptions[aiIndex++];
+            }
+          }
+          setOptionss(updatedOptions);
+            }
+      
+
+          setAiUseCount((prev) => prev + 1);
+          console.log("AI 선지 생성 완료!");
+        }
+      )
+      
+      .catch((err) => {
+        clearTimeout(timeout); // 에러나도 타임아웃 제거
+        if (err.name === "AbortError") {
+          console.error("요청이 10분 초과로 자동 취소되었습니다.");
+          alert("요청이 너무 오래 걸려 취소되었습니다. 다시 시도해주세요.");
+        } else {
+          console.error("에러 발생:", err.message);
+        }
+      });
     }
   };
+  
 
   const [catego, setcate] = useState("");
 
@@ -134,9 +184,11 @@ export default function Votemake() {
         <TitleWrapper>
           <TitleInputWrapper>
             <OptionC>
-              <OptionButton onClick={() => setcate("재미")}>재미</OptionButton>
-              <OptionButton onClick={() => setcate("진지")}>진지</OptionButton>
+            <OptionButton selected={catego === "유머" }onClick={() => setcate(catego === "유머" ? "" : "유머")} >유머</OptionButton>
+            <OptionButton selected={catego === "학교생활" }onClick={() => setcate(catego === "학교생활" ? "" : "학교생활")} >학교생활</OptionButton>
+            <OptionButton selected={catego === "기숙사" }onClick={() => setcate(catego === "기숙사" ? "" : "기숙사")} >기숙사</OptionButton>
             </OptionC>
+            <OptionHr />
             <TitleInput
               placeholder="투표제목을 입력하세요"
               value={title}

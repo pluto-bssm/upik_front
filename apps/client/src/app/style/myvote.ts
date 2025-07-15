@@ -108,6 +108,10 @@ export const Name =  styled.p`
   font-size: 2.5vh;
 `;
 
+export const GuideInfo =  styled.p`
+  color : #0158de;
+`;
+
 
 export const NameForm =  styled.div`
   display : flex;
@@ -175,7 +179,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
   cursor: pointer;
   background-color: #fafafa;
   width: 90%;
-  height: 9vh;
+  height: 10vh;
   margin-bottom: 1vh;
   display: flex;
   flex-direction: column;
@@ -195,6 +199,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
 
 // 리스트 내부 텍스트 영역
 export const ListItemInner = styled.div`
+  padding : 10px;
   margin-left: 2vh;
   display: flex;
   flex-direction: column;

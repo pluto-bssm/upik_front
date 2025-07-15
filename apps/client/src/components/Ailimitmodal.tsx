@@ -17,7 +17,7 @@ export default function AiLimitModal({ onClose }: ModalProps) {
     <ModalOverlay>
       <ModalContent>
         <Title>안내</Title>
-        <Description>AI 선지 추천은 최대 3회까지 가능합니다.</Description>
+        <Description>AI 선지 추천은 최초 1회 가능합니다.</Description>
         <Buttons>
         <CloseButton onClick={onClose}>확인</CloseButton>
         </Buttons>

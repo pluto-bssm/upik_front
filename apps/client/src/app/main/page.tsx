@@ -14,9 +14,7 @@ import { GUIDES_SELECT, VOTE_SELECT } from "@/app/api/query";
 
 export default function MainPage() {
   // 가이드 데이터 가져오기
-  const { data: guideData, loading: guideLoading, error: guideError } = useQuery(GUIDES_SELECT, {
-    variables: { category: "재미" },
-  });
+  const { data: guideData, loading: guideLoading, error: guideError } = useQuery(GUIDES_SELECT);
 
   // 인기 있는 가이드 데이터 정렬 및 추출
   const topGuides = guideData?.guidesByCategory
