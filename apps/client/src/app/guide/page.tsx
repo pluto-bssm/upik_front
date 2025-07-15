@@ -21,6 +21,7 @@ export default function GuideDetail() {
   const id = searchParams.get("id") || "";
   const router = useRouter();
 
+  
   function goBack() {
     router.back();
   }
