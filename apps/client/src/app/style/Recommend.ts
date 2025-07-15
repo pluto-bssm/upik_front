@@ -57,7 +57,7 @@ export const OptionRow = styled.div`
 
 export const OptionInput = styled.div`
   display: flex;
-  gap : 65vh;
+  gap : 8vh;
   background-color: transparent;
   border: none;
   outline: none;

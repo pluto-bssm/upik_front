@@ -27,10 +27,10 @@ export const Sub = styled.h1`
 
 export const ContentBox = styled.div`
     display: flex;
+    gap : 8vh;
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    gap: 1vh;
     width: 100%;
     height : 30vh;
     border-radius: 2vh;
@@ -159,7 +159,7 @@ export const ButtonContent =  styled.div`
 `;
 // 리스트 박스 (왼쪽)
 export const ListBox = styled.div`
-  width: 60vh;
+  width: 55vh;
   height: 60vh;
   background-color: #ffffff;
   border-radius: 1vh;
@@ -176,7 +176,7 @@ export const ListItem = styled.div<{ selected?: boolean }>`
   cursor: pointer;
   background-color: #fafafa;
   width: 90%;
-  height: 9vh;
+  height: 13vh;
   margin-bottom: 1vh;
   display: flex;
   flex-direction: column;

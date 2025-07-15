@@ -21,10 +21,12 @@ query MyQuery {
   }
 `;
 export const GET_AIOPTION = gql`
-query MyQuery($count: Int!, $title: String!) {
+query MyQuery($count: Int! , $title: String!) {
   optionGenerator {
-    generateOptions(count: $count, title: $title) {
+    generateOptions(title: $title, count:$count) {
+      success
       options
+      message
     }
   }
 }
@@ -39,3 +41,52 @@ query MyQuery($votedId : ID!) {
   }
 }
 `;
+
+
+export const REPORT = gql`
+query MyQuery {
+  report {
+    getMyReports {
+      createdAt
+      reason
+      targetId
+      targetType
+      userId
+    }
+  }
+}
+`;
+
+
+
+export const LOOKSLOKE = gql`
+query MyQuery {
+  vote {
+    getMyVotes {
+      category
+      finishedAt
+      title
+      id
+    }
+  }
+}
+`;
+
+
+export const GuideSim = gql`
+query MyQuery($title : String!) {
+  optionGenerator {
+    findSimilarGuidesByTitle(title: $title) {
+      message
+      count
+      guides {
+        id
+        summary
+        title
+      }
+    }
+  }
+}
+`;
+
+

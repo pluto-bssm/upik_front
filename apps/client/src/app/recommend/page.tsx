@@ -6,6 +6,10 @@ import arrow from "@/app/images/arrow.svg";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
+
+import { useQuery } from "@apollo/client";
+import { GuideSim } from '../queries';
+
 import {
   Container,
   TitleWrapper,
@@ -26,6 +30,7 @@ import {
 } from "../style/Recommend";
 
 export default function Recommend() {
+
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,6 +39,7 @@ export default function Recommend() {
   const catego = searchParams.get("catego") || "";
   const title = searchParams.get("title") || "";
   const optionsss = searchParams.get("optionsss") || "";
+  
 
   const [options, setOptions] = useState(["", "", "", "", ""]);
 
@@ -41,6 +47,26 @@ export default function Recommend() {
     router.push("/");
   }
 
+  function Gotoguide(e : String){
+
+  }
+
+  const { loading: loadingVotes, error: errorVotes, data: dataVotes } = useQuery(GuideSim,{
+    variables :{
+      title : title
+    }
+});
+
+if(loadingVotes){
+  return(
+    <div>
+      <WarnP>로딩중</WarnP>
+    </div>
+  )
+}
+
+if(dataVotes){
+  console.log(dataVotes.optionGenerator.findSimilarGuidesByTitle.guides )
   return (
     <>
       {showModal && (
@@ -61,22 +87,22 @@ export default function Recommend() {
       <Container>
         <TitleWrapper>
           <TitleInputWrapper>
-            <TitleInput value="유사한 내용의 가이드가 이미 존재합니다!" readOnly />
+            {dataVotes.optionGenerator.findSimilarGuidesByTitle.count > 0 ?  <TitleInput value="유사한 내용의 가이드가 이미 존재합니다!" readOnly /> : <TitleInput value="유사한 내용의 가이드가 존재하지않습니다." readOnly />}
             <WarnP>아래 가이드의 내용이 본인이 원하는 내용과 같다면 질문을 업로드하지 않아도 됩니다!</WarnP>
           </TitleInputWrapper>
 
           <OptionsWrapper>
-            {options.map((option, id) => (
+            {dataVotes.optionGenerator.findSimilarGuidesByTitle.guides.map((guides : any , id : any) => (
               <OptionRow key={id}>
                 <OptionInput>
-                  <div className="flex flex-col w-[20vh]">
-                    <Category>유머가이드</Category>
-                    <p>가이드</p>
+                  <div className="flex flex-col w-[80vh]">
+                    <Category>{guides.id}</Category>
+                    <p>{guides.title}</p>
                   </div>
 
                   <ReButton>
                     자세히보기
-                    <StyledArrowImage src={arrow} alt="checkimg" width={16} height={16} />
+                    <StyledArrowImage src={arrow} alt="checkimg" width={16} height={16} onClick={() => (Gotoguide(guides.id))} />
                   </ReButton>
                 </OptionInput>
               </OptionRow>
@@ -96,4 +122,5 @@ export default function Recommend() {
       </Container>
     </>
   );
+}
 }
