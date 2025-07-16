@@ -4,16 +4,16 @@ import color from "@/app/style/color";
 export const ModalOverlay = styled.div`
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1px);
     justify-content: center;
     z-index: 50;
 `;
 
 export const ModalContent = styled.div`
-    background-color: ${color.white};
+    background-color: white;
     border-radius: 8px;
     padding: 2.5rem;
     width: 600px;
@@ -60,5 +60,6 @@ export const BackButton = styled.button`
     font-size: 0.875rem;
     border-radius: 100px;
 `;
+
 
 

@@ -68,4 +68,13 @@ query MyQuery($id: ID!) {
 
 `;
 
+//재투표 요청보내기
+export const REVOTE_REQUEST = gql`
+mutation MyMutation($id: ID!, $reason:String!)  {
+  guide {
+    incrementGuideRevote(id: $id, reason: $reason)
+  }
+}
+`;
+
 export default client;

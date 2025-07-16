@@ -89,6 +89,19 @@ export const VoteButton = styled.button`
   margin-left: auto;
 `;
 
+export const LookButton = styled.button`
+  background-color: #0158de;
+  border: 1px solid ${color.main};
+  color: white;
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+`;
+
 export const ContentList = styled.div`
   display: flex;
   flex-direction: column;

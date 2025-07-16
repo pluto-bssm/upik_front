@@ -9,6 +9,7 @@ const color = {
     gray300: '#8B8B8B',
     gray500: '#595959',
     gray800: '#0D0D0D',
+    blur:'rgba(0, 0, 0, 0.3);',
   };
   
   export default color;

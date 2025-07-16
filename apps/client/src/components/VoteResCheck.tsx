@@ -15,8 +15,8 @@ import {
 }from "@/app/style/VoteResCheck";
 import { useQuery } from "@apollo/client";
 import { VOTE_CHART } from "@/app/api/query";
+import Revoterequest from "@/components/Revoterequest";
 
-// 타입 정의
 interface VoteOption {
   id: string;
   content: string;
@@ -33,7 +33,7 @@ interface Vote {
 }
 
 export default function VoteResCheck({ voteId, onClose }: { voteId: string; onClose: () => void }) {
-  const [modalMode1, setModalMode1] = useState<"none" | "vote_res" >("none");
+  const [modalMode1, setModalMode1] = useState<"none" | "vote_res" | "revote_request">("none");
 
   // voteId를 쿼리 변수로 넘김
   const { data, loading, error } = useQuery(VOTE_CHART, {
@@ -49,7 +49,6 @@ export default function VoteResCheck({ voteId, onClose }: { voteId: string; onCl
     return null;
   }
 
-  // getVoteById 결과 구조에 맞게 vote 데이터 추출
   const vote = data?.vote?.getVoteById;
 
   if (!vote) {
@@ -73,46 +72,49 @@ export default function VoteResCheck({ voteId, onClose }: { voteId: string; onCl
   return (
     <ModalOverlay onClick={onClose}>
       <ModalContent onClick={(e) => e.stopPropagation()}>
-        <Container>
-        <div>
-          <Header>
-            <ChartNoAxesColumn size={36} />
-            투표 결과 보기
-          </Header>
-          <VoteTitle>{ques.voteTitle}</VoteTitle>
-          <DateContainer>
-            <span>{ques.date} 투표 마감</span>
-          </DateContainer>
-
-          <VoteList>
-            {ques.voteRes.map((res: { text: string; percent: number; selected?: boolean }, idx: number) => (
-              <VoteTable
-                key={idx}
-                text={res.text}
-                percent={res.percent}
-                selected={res.selected}
-              />
-            ))}
-          </VoteList>
-        </div>
-
-        <ButtonContainer>
-          <RequestButton onClick={() => setModalMode1("vote_res")}> 
-            관리자에게 재투표 요청 보내기
-            <Send size={18} />
-          </RequestButton>
-        </ButtonContainer>
-        </Container>
+        {modalMode1 === "revote_request" ? (
+          <Revoterequest
+            onClose={() => setModalMode1("none")}
+            onSubmit={() => setModalMode1("none")}
+            voteId={voteId}
+          />
+        ) : modalMode1 === "vote_res" ? (
+          <VoteResult
+            onClose={() => setModalMode1("none")}
+            onBack={() => setModalMode1("none")}
+            onRevote={() => setModalMode1("revote_request")}
+          />
+        ) : (
+          <Container>
+            <div>
+              <Header>
+                <ChartNoAxesColumn size={36} />
+                투표 결과 보기
+              </Header>
+              <VoteTitle>{ques.voteTitle}</VoteTitle>
+              <DateContainer>
+                <span>{ques.date} 투표 마감</span>
+              </DateContainer>
+              <VoteList>
+                {ques.voteRes.map((res: { text: string; percent: number; selected?: boolean }, idx: number) => (
+                  <VoteTable
+                    key={idx}
+                    text={res.text}
+                    percent={res.percent}
+                    selected={res.selected}
+                  />
+                ))}
+              </VoteList>
+            </div>
+            <ButtonContainer>
+              <RequestButton onClick={() => setModalMode1("vote_res")}> 
+                관리자에게 재투표 요청 보내기
+                <Send size={18} />
+              </RequestButton>
+            </ButtonContainer>
+          </Container>
+        )}
       </ModalContent>
-      {modalMode1 === "vote_res" && (
-        <VoteResult
-          onClose={() => {
-            setModalMode1("none");
-            onClose();
-          }}
-          onBack={() => setModalMode1("none")}
-        />
-      )}
     </ModalOverlay>
   );
 }

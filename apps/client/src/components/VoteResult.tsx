@@ -7,16 +7,16 @@ import{
     Description,
     ButtonContainer,
     YesButton,
-    BackButton
+    BackButton,
 } from "@/app/style/VoteResult";
 
 interface Props {
     onClose: () => void;  
     onBack: () => void;        
+    onRevote: () => void;
   }
 
-export default function VoteResult({onClose,onBack}:Props){
-
+export default function VoteResult({onClose, onBack, onRevote}: Props){
     return (
         <ModalOverlay>
             <ModalContent>
@@ -27,7 +27,7 @@ export default function VoteResult({onClose,onBack}:Props){
                 </Description>
 
                 <ButtonContainer>
-                    <YesButton onClick={onClose}>
+                    <YesButton onClick={onRevote}>
                         네
                     </YesButton>
                     <BackButton onClick={onBack}>
@@ -39,3 +39,4 @@ export default function VoteResult({onClose,onBack}:Props){
         </ModalOverlay>
     );
 }
+

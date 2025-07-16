@@ -2,6 +2,7 @@
 import VoteResCheck from "@/components/VoteResCheck";
 import { Calendar, ThumbsUp, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   CardContainer,
   CardGroup,
@@ -11,6 +12,7 @@ import {
   ButtonGroup,
   HelpButton,
   VoteButton,
+  LookButton
 } from "@/app/style/ContentBox";
 
 interface PostProps {
@@ -29,6 +31,7 @@ export default function ContentBox({ post }: PostProps) {
   const [helpCount, setHelpCount] = useState(post.like);
   const [isHelped, setIsHelped] = useState(false);
   const [modalMode, setModalMode] = useState<"none"| "vote">("none");
+  const router = useRouter();
 
   const closeModal = () => {
     console.log("Modal 닫기");
@@ -63,6 +66,12 @@ export default function ContentBox({ post }: PostProps) {
             <ThumbsUp size={16} />
             도움이 되었어요 | {helpCount}명
           </HelpButton>
+          <LookButton
+            onClick={() => router.push(`/guide?id=${post.id}`)}
+            style={{ cursor: "pointer" }}
+          >
+            자세히보기
+          </LookButton>
           <VoteButton onClick={handleVoteClick}>
             투표 결과 확인하기 <ArrowRight size={16} />
           </VoteButton>

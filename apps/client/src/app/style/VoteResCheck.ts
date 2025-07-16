@@ -18,7 +18,7 @@ export const Container = styled.div`
 export const ModalOverlay = styled.div`
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${color.blur};
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;

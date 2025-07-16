@@ -29,22 +29,30 @@ export const Content = styled.div`
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: center; 
-  gap: 2rem; 
+  justify-content: space-between;
+  gap: 0.5rem;
   font-size: 16px;
   font-weight: 500;
   z-index: 10;
+  width: 100%;
+  padding: 0 1.5rem;
 `;
 
 export const Text = styled.span`
-  font-size: 1.125rem;
+  font-size: 16px;
   color:${color.gray800};
-  margin-right:540px;
+  margin: 0;
+  width: auto;
+  height: auto;
+  flex: 1;
+  text-align: left;
 `;
 
 export const Percent = styled.span`
   font-size: 16px;
+  margin-right:50px;
   font-weight: 500;
   color:${color.gray800};
+  flex-shrink: 0;
 `;
   

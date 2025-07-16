@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import color from "@/app/style/color";
 
+interface SubmitButtonProps {
+  isDisabled: boolean;
+}
+
 export const ModalOverlay = styled.div`
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +18,7 @@ export const ModalContent = styled.div`
   background-color: ${color.white};
   border-radius: 0.75rem;
   width: 770px;
-  height: 359px;
+  height: 350px;
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
@@ -27,22 +29,23 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 2.25rem;
+  font-size: 28px;
   font-weight: 600;
-  color: black;
+  color: ${color.gray800};
   margin-bottom: 1.5rem;
 `;
 
 export const Label = styled.label`
   display: block;
-  font-size: 1.25rem;
+  font-size: 18px;
   font-weight: 500;
   color: black;
   margin-bottom: 0.5rem;
+  margin-left:11px;
 `;
 
 export const TextArea = styled.textarea`
-  width: 100%;
+  width: 97%;
   height: 140px;
   border: 1px solid #A6A6A6;
   border-radius: 0.375rem;
@@ -64,13 +67,15 @@ export const ButtonContainer = styled.div`
 
 export const SubmitButton = styled.button<SubmitButtonProps>`
   background-color: ${color.main};
-  color: white;
-  font-size: 0.875rem;
+  color: ${color.white};
+  border:none;
+  font-size: 14px;
   padding: 0.5rem 1.5rem;
   border-radius: 9999px;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  height:44px;
   margin-top: 0.75rem;
   cursor: ${(props: SubmitButtonProps) => props.isDisabled ? 'not-allowed' : 'pointer'};
 `;
