@@ -77,42 +77,39 @@ export default function Votepage() {
   const stat : string = 'OPEN';
   return (
     <Container>
-      {dataVotes.vote.getAllVotes.map((vote: any, i: number) => (
-        (hasUserVotedResults[i++] === false && hasUserVotedClosed[i++] == stat) ? (
-          // 투표하지 않은 경우
-          <div key={vote.id}>
-            <Card>
-              <InfoWrapper>
-                <CategoryText>{vote.category}</CategoryText>
-                <TitleWrapper>
-                  <TitleText>{vote.title}</TitleText>
-                  <DateWrapper>
-                    <DateText>{vote.finishedAt} 투표마감</DateText>
-                  </DateWrapper>
-                </TitleWrapper>
-              </InfoWrapper>
-            </Card>
-
-            <MenuWrapper>
-              <Votemenu
-                options={Array.isArray(vote.options) ? vote.options : []}
-                voteid={vote.id}
-                votefihishedAt={vote.finishedAt}
-              />
-            </MenuWrapper>
-          </div>
-        ) : (
-          // 이미 투표한 경우
-          <div key={vote.id}>
-            <ALERDYCard>
-              <ALERDYCardS>
-              <ALERDYTitleText>이미 투표를 완료했습니다.</ALERDYTitleText>
-              <ALERDYSubTitleText>투표제목 : {vote.title}</ALERDYSubTitleText>
-              </ALERDYCardS>
-            </ALERDYCard>
-          </div>
-        )
-      ))}
+      {dataVotes.vote.getAllVotes.map((vote: any, i: number) => {
+        const hasVoted = hasUserVotedResults[i] === false;
+        const isOpen = hasUserVotedClosed[i] === 'OPEN';
+  
+        if (hasVoted && isOpen) {
+          return (
+            <div key={vote.id}>
+              <Card>
+                <InfoWrapper>
+                  <CategoryText>{vote.category}</CategoryText>
+                  <TitleWrapper>
+                    <TitleText>{vote.title}</TitleText>
+                    <DateWrapper>
+                      <DateText>{vote.finishedAt} 투표마감</DateText>
+                    </DateWrapper>
+                  </TitleWrapper>
+                </InfoWrapper>
+              </Card>
+  
+              <MenuWrapper>
+                <Votemenu
+                  options={Array.isArray(vote.options) ? vote.options : []}
+                  voteid={vote.id}
+                  votefihishedAt={vote.finishedAt}
+                />
+              </MenuWrapper>
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
     </Container>
   );
+  
 }
