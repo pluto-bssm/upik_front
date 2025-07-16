@@ -1,5 +1,5 @@
 import { Siren, Send } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import{
     ModalOverlay,
     ModalContent,
@@ -11,26 +11,36 @@ import{
 } from "@/app/style/Revoterequest";
 import { useMutation } from "@apollo/client";
 import { REVOTE_REQUEST } from "@/app/api/query";
+import { useRouter } from "next/navigation";
 
 interface Props {
     onClose: () => void;
     onSubmit: () => void;
     voteId: string;
+    guideId: string;
+    category: string;
 }
 
-export default function Revoterequest({onClose, onSubmit, voteId}: Props){
+export default function Revoterequest({onClose, onSubmit, voteId, guideId, category}: Props){
     const [reportContent, setReportContent] = useState("");
     const [sendRevoteRequest, { loading, error }] = useMutation(REVOTE_REQUEST);
+    const router = useRouter();
 
     const handleSubmit = async () => {
-            await sendRevoteRequest({
-                variables: {
-                    id: voteId,
-                    reason: reportContent,
-                },
-            });
-            onSubmit();
+        await sendRevoteRequest({
+            variables: {
+                id: guideId,
+                reason: reportContent,
+            },
+        });
+        onSubmit();
     };
+        
+    useEffect(() => {
+        if (error) {
+            console.log(error);
+        }
+    }, [error]);
 
     return(
         <ModalOverlay onClick={onClose}>
@@ -59,7 +69,7 @@ export default function Revoterequest({onClose, onSubmit, voteId}: Props){
                         요청 보내기 <Send size={18}/>
                     </SubmitButton>
                 </ButtonContainer>
-                {error && <div style={{color: 'red', marginTop: '1rem'}}>요청 중 오류가 발생했습니다.</div>}
+                
             </ModalContent>
         </ModalOverlay>
     );

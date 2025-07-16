@@ -32,7 +32,7 @@ interface Vote {
   date?: string;
 }
 
-export default function VoteResCheck({ voteId, onClose }: { voteId: string; onClose: () => void }) {
+export default function VoteResCheck({ voteId, guideId, category, onClose }: { voteId: string; guideId: string; category: string; onClose: () => void }) {
   const [modalMode1, setModalMode1] = useState<"none" | "vote_res" | "revote_request">("none");
 
   // voteId를 쿼리 변수로 넘김
@@ -77,6 +77,8 @@ export default function VoteResCheck({ voteId, onClose }: { voteId: string; onCl
             onClose={() => setModalMode1("none")}
             onSubmit={() => setModalMode1("none")}
             voteId={voteId}
+            guideId={guideId}
+            category={category}
           />
         ) : modalMode1 === "vote_res" ? (
           <VoteResult

@@ -28,6 +28,7 @@ interface PostProps {
 }
 
 export default function ContentBox({ post }: PostProps) {
+  console.log("ContentBox post:", post);
   const [helpCount, setHelpCount] = useState(post.like);
   const [isHelped, setIsHelped] = useState(false);
   const [modalMode, setModalMode] = useState<"none"| "vote">("none");
@@ -79,7 +80,7 @@ export default function ContentBox({ post }: PostProps) {
         {modalMode === "vote" && (
           <>
             {console.log("VoteResCheck 렌더링: voteId =", post.voteId)}
-            <VoteResCheck voteId={post.voteId} onClose={closeModal} />
+            <VoteResCheck voteId={post.voteId} guideId={post.id} category={post.category} onClose={closeModal} />
           </>
         )}
       </CardGroup>
