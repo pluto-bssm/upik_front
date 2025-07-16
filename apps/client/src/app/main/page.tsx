@@ -11,8 +11,10 @@ import {
 } from "@/app/style/Main";
 import { useQuery } from "@apollo/client";
 import { GUIDES_SELECT, VOTE_SELECT } from "@/app/api/query";
+import { useRouter } from "next/navigation";
 
 export default function MainPage() {
+  const router = useRouter();
   // 카테고리별로 가이드 데이터 가져오기
   const { data: dormData, loading: dormLoading, error: dormError } = useQuery(GUIDES_SELECT, { variables: { category: "기숙사" } });
   const { data: schoolData, loading: schoolLoading, error: schoolError } = useQuery(GUIDES_SELECT, { variables: { category: "학교생활" } });
@@ -74,7 +76,6 @@ export default function MainPage() {
             <Title>인기있는 투표</Title>
             <CardList>
               {voteLoading && <div>로딩중...</div>}
-              {voteError && <div>에러: {voteError.message}</div>}
               {!voteLoading && !voteError && mostPopularVotes.length === 0 && <div>투표 없음</div>}
               {mostPopularVotes.map((vote, idx) => (
                 <MContentCard
@@ -91,14 +92,18 @@ export default function MainPage() {
             <Title>인기있는 가이드</Title>
             <CardList>
               {guideLoading && <div>로딩중...</div>}
-              {guideError && <div>에러: {guideError.message}</div>}
               {!guideLoading && !guideError && topGuides.length === 0 && <div>가이드 없음</div>}
               {topGuides.map((guide, idx) => (
-                <MContentCard
+                <div
                   key={guide.id || idx}
-                  title={guide.title}
-                  date={guide.createdAt}
-                />
+                  onClick={() => router.push(`/guide?id=${guide.id}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <MContentCard
+                    title={guide.title}
+                    date={guide.createdAt}
+                  />
+                </div>
               ))}
             </CardList>
           </Section>
@@ -108,7 +113,6 @@ export default function MainPage() {
             <Title>오늘의 투표</Title>
             <CardList>
               {voteLoading && <div>로딩중...</div>}
-              {voteError && <div>에러: {voteError.message}</div>}
               {!voteLoading && !voteError && latestVotes.length === 0 && <div>투표 없음</div>}
               {latestVotes.map((vote, idx) => (
                 <MContentCard
@@ -125,14 +129,18 @@ export default function MainPage() {
             <Title>오늘의 가이드</Title>
             <CardList>
               {guideLoading && <div>로딩중...</div>}
-              {guideError && <div>에러: {guideError.message}</div>}
               {!guideLoading && !guideError && latestGuides.length === 0 && <div>가이드 없음</div>}
               {latestGuides.map((guide, idx) => (
-                <MContentCard
+                <div
                   key={guide.id || idx}
-                  title={guide.title}
-                  date={guide.createdAt}
-                />
+                  onClick={() => router.push(`/guide?id=${guide.id}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <MContentCard
+                    title={guide.title}
+                    date={guide.createdAt}
+                  />
+                </div>
               ))}
             </CardList>
           </Section>

@@ -21,7 +21,7 @@ export default function StudentPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
   if (loading) return <div>로딩중... (GraphQL 쿼리 실행 중)</div>;
-  if (error) return <div>에러: {error.message}</div>;
+  if (data == null) return <div>데이터가 없습니다</div>;
   if (!data?.guidesByCategory) return <div>데이터가 없습니다.</div>;
 
   const guides = data.guidesByCategory;
