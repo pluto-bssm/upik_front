@@ -21,6 +21,7 @@ export default function GuideDetail() {
   const id = searchParams.get("id") || "";
   const router = useRouter();
 
+  
   function goBack() {
     router.back();
   }
@@ -48,8 +49,10 @@ export default function GuideDetail() {
         </GuideHeader>
         <GuideContent>{guide.content}</GuideContent>
       </GuideWrapper>
+      
+      <SubmitButton onClick={() => {goBack()}}>돌아가기</SubmitButton>
     </GuideDiv>
-    <SubmitButton onClick={() => {goBack()}}>돌아가기</SubmitButton>
+    
     </Guides>
   );
 }
