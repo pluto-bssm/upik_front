@@ -3,17 +3,20 @@ import { Button } from "./End";
 
 export const GuideDiv = styled.div`
   width: 110vh;
-  height: 90vh;
+  height: 100%;
   background-color: white;
   margin-left: 30vh;
   border-radius: 10px;
   display: flex;
+  flex-direction : column;
   align-items: center;
   justify-content: center;
 `;
 
 export const Guides = styled.div`
   margin-top : 5vh;
+  margin-bottom : 5vh;
+  height: auto;
 `;
 
 export const GuideWrapper = styled.div`
@@ -21,16 +24,15 @@ export const GuideWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5vh;
-  margin-left : -60vh;
-  margin-top : -20vh;
+  margin-top : 5vh;
+  margin-left : -25vh;
+  width : auto;
 `;
 
 export const GuideHeader = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3vh;
-  position : relative;
-  top:-20vh;
 `;
 
 export const GuideTitle = styled.p`
@@ -50,18 +52,16 @@ export const GuideContent = styled.p`
   font-size: 1.8vh;
   line-height: 3.2vh;
   white-space: pre-wrap;
-  width : 55%;
-  position: absolute; 
-  top: 30vh;
+  width : 100%;
 `;
 
 export const SubmitButton = styled(Button)`
   color: white;
   background-color: #0158de;
-  border-color: #0158de;
-  position : relative ;
-  top:-10vh;
-  left:120vh;
+  border-color: #0158de; 
+
+  margin-left : 80vh;
+  margin-bottom :10vh;
 
   
   &:hover {
