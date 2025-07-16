@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 export const GET_ALL_VOTES = gql`
-query MyQuery {
+query MyQuery{
     vote {
       getAllVotes {
         category

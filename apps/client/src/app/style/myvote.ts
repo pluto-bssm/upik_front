@@ -28,19 +28,11 @@ export const ContentBox = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: start;
-    gap: 1vh;
     width: 100%;
-    height : 30vh;
+    height : auto;
     border-radius: 2vh;
 `;
 
-export const ProfileImage = styled(Image)`
-  width: 15vh;
-  height: 15vh;
-  margin-top : 14vh;
-
-`;
 
 export const InfoContainer = styled.div`
   display: flex;
@@ -162,13 +154,16 @@ export const ButtonContent =  styled.div`
 `;
 // 리스트 박스 (왼쪽)
 export const ListBox = styled.div`
+
   width: 124vh;
-  height: 60vh;
+  max-height: 60vh;
+  gap : 20px;
   background-color: #ffffff;
   border-radius: 1vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   padding-top: 2vh;
   padding-bottom: 2vh;
   overflow-y: scroll;
@@ -179,10 +174,6 @@ export const ListItem = styled.div<{ selected?: boolean }>`
   cursor: pointer;
   background-color: #fafafa;
   width: 90%;
-  height: 10vh;
-  margin-bottom: 1vh;
-  display: flex;
-  flex-direction: column;
   border-radius: 5px;
   transition: background-color 0.2s ease;
   outline : none;

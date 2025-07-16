@@ -47,7 +47,9 @@ export default function GuideDetail() {
             <p>좋아요 : {guide.likeCount}</p>
           </GuideMeta>
         </GuideHeader>
+        <div>
         <GuideContent>{guide.content}</GuideContent>
+        </div>
       </GuideWrapper>
       
       <SubmitButton onClick={() => {goBack()}}>돌아가기</SubmitButton>

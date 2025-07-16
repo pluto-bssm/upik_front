@@ -61,7 +61,7 @@ export default function Mypage() {
         <ListBox>
           {dataVotes.vote.getMyVotes.map((post: any) => (
             <ListItem
-              key={post.id}
+              key={post.title}
               onClick={() =>
                 selectedPost?.id === post.id ? setSelectedPost(null) : setSelectedPost(post)
               }

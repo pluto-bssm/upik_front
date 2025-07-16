@@ -9,14 +9,16 @@ export const GuideDiv = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction : column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
 `;
 
 export const Guides = styled.div`
   margin-top : 5vh;
   margin-bottom : 5vh;
   height: auto;
+  display : flex;
+  justify-content: flex-start;
 `;
 
 export const GuideWrapper = styled.div`
@@ -24,15 +26,15 @@ export const GuideWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5vh;
-  margin-top : 5vh;
-  margin-left : -25vh;
-  width : auto;
+
+
 `;
 
 export const GuideHeader = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3vh;
+
 `;
 
 export const GuideTitle = styled.p`
@@ -46,13 +48,15 @@ export const GuideMeta = styled.div`
   gap: 3vh;
   color: gray;
   font-size: 1.5vh;
+
+  
 `;
 
 export const GuideContent = styled.p`
   font-size: 1.8vh;
   line-height: 3.2vh;
   white-space: pre-wrap;
-  width : 100%;
+
 `;
 
 export const SubmitButton = styled(Button)`

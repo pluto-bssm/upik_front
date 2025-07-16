@@ -25,12 +25,16 @@ import { GET_ALL_VOTES, HAS_VOTED } from "../queries";
 export default function Votepage() {
   const { loading: loadingVotes, error: errorVotes, data: dataVotes } = useQuery(GET_ALL_VOTES);
   const [hasUserVotedResults, setHasUserVotedResults] = useState<boolean[]>([]);
+  const [hasUserVotedClosed, setHasUserVotedClosed] = useState<string[]>([]);
+
 
   // 비동기적으로 투표 여부를 확인하여 상태 업데이트
   useEffect(() => {
     if (dataVotes?.vote?.getAllVotes?.length) {
       const fetchVoteStatuses = async () => {
         const results: boolean[] = [];
+        const closed: string[] = [];
+        let i = 0;
         for (const vote of dataVotes.vote.getAllVotes) {
           if (vote?.id) {
             try {
@@ -40,7 +44,9 @@ export default function Votepage() {
                   votedId: vote.id,
                 },
               });
+
               results.push(response.data.voteResponse.hasUserVoted);
+              closed.push(dataVotes.vote.getAllVotes[i].status);
             } catch (error) {
 
               
@@ -49,13 +55,17 @@ export default function Votepage() {
             console.warn(`Invalid vote object detected:`, vote);
              // 유효하지 않은 객체에 기본 값 추가
           }
+          i++;
         }
         setHasUserVotedResults(results); // 모든 결과를 한 번에 상태 업데이트
+        setHasUserVotedClosed(closed);
       };
 
       fetchVoteStatuses();
     }
   }, [dataVotes]);
+
+  console.log(typeof(hasUserVotedClosed[0]));
 
   if (loadingVotes) return <p>로딩 중...</p>;
   if (errorVotes) return <p>에러 발생: {errorVotes.message}</p>;
@@ -64,10 +74,11 @@ export default function Votepage() {
 
   
 
+  const stat : string = 'OPEN';
   return (
     <Container>
       {dataVotes.vote.getAllVotes.map((vote: any, i: number) => (
-        hasUserVotedResults[i++] === false ? (
+        (hasUserVotedResults[i++] === false && hasUserVotedClosed[i++] == stat) ? (
           // 투표하지 않은 경우
           <div key={vote.id}>
             <Card>
