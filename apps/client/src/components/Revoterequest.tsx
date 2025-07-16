@@ -23,7 +23,6 @@ export default function Revoterequest({onClose, onSubmit, voteId}: Props){
     const [sendRevoteRequest, { loading, error }] = useMutation(REVOTE_REQUEST);
 
     const handleSubmit = async () => {
-        try {
             await sendRevoteRequest({
                 variables: {
                     id: voteId,
@@ -31,9 +30,6 @@ export default function Revoterequest({onClose, onSubmit, voteId}: Props){
                 },
             });
             onSubmit();
-        } catch (e) {
-            alert("재투표 요청에 실패했습니다.");
-        }
     };
 
     return(
@@ -59,7 +55,6 @@ export default function Revoterequest({onClose, onSubmit, voteId}: Props){
                     <SubmitButton
                         onClick={handleSubmit}
                         disabled={!reportContent.trim() || loading}
-                        isDisabled={!reportContent.trim() || loading}
                     >
                         요청 보내기 <Send size={18}/>
                     </SubmitButton>

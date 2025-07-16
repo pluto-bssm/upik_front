@@ -2,7 +2,7 @@ import styled from "styled-components";
 import color from "@/app/style/color";
 
 interface SubmitButtonProps {
-  isDisabled: boolean;
+  disabled: boolean;
 }
 
 export const ModalOverlay = styled.div`
@@ -77,5 +77,5 @@ export const SubmitButton = styled.button<SubmitButtonProps>`
   gap: 0.25rem;
   height:44px;
   margin-top: 0.75rem;
-  cursor: ${(props: SubmitButtonProps) => props.isDisabled ? 'not-allowed' : 'pointer'};
+  cursor: ${(props: SubmitButtonProps) => props.disabled ? 'not-allowed' : 'pointer'};
 `;
