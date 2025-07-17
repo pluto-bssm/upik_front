@@ -6,8 +6,9 @@ export const CardContainer = styled.div`
   border-radius: 8px;
   padding: 1rem;
   font-size: 0.875rem;
-  widht:100%;
-  height:40px;
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
 `;
 
 export const Title = styled.div`
